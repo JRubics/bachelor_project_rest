@@ -25,7 +25,9 @@ SECRET_KEY = 'hv8zahki7!h5na&d2t!mn8ij%vgbkzt6mk-i$ecx#8#9)!7k_2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'bachelor.localhost'
+]
 
 
 # Application definition

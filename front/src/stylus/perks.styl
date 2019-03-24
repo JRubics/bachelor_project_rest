@@ -1,0 +1,30 @@
+.perktree
+	.v-card
+		padding 1rem
+		height 42rem
+
+		#perktree
+			height 100%
+
+			text
+				fill #ebdbb2
+
+	.node rect
+		fill-opacity .9
+		shape-rendering crispEdges
+		cursor pointer
+
+	.node text
+		pointer-events none
+		text-shadow 0 1px 0 #fff
+		fill white
+
+	.link
+		fill none
+		stroke #000
+		stroke-opacity .5
+
+		&:hover
+			stroke-opacity .4
+			stroke #fbf1c7
+
