@@ -14,8 +14,8 @@ export default class AuthController {
 		if (data.refresh) {
 			localStorage.setItem('refresh', data.refresh);
 		}
-		if (data.access) {
-			localStorage.setItem('access', data.access);
+		if (data.token) {
+			localStorage.setItem('access', data.token);
 		}
 	}
 

@@ -30,12 +30,9 @@ const router = new Router({
 			},
 		},
 		{
-			path: '/',
+			path: '/upload-file',
 			name: 'upload-file',
 			component: UploadFile,
-			meta: {
-				guest: true,
-			},
 		},
 		{
 			path: '/login',
