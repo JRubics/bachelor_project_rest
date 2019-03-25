@@ -20,7 +20,7 @@
 						v-for="(error, index) in loginErrors"
 						:key="index"
 						class="login-errors"
-					>{{ error.description }}</p>
+					>{{ error }}</p>
 					<v-btn type="submit">Login</v-btn>
 				</form>
 			</v-card>

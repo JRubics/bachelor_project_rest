@@ -20,8 +20,8 @@ class UploadFileView(APIView):
     def post(self, request):
         document = request.FILES.get('file')
         if document.size > 1024:
-            messages.error(request, "File too big")
-            return render(request, 'students/upload_document.html')
+            content = {'message': 'File too big'}
+            return Response(content)
         fs = FileSystemStorage()
         filename = fs.save(document.name, document)
 

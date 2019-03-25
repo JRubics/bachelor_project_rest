@@ -16,6 +16,11 @@
                         </v-flex>
                     </v-layout>
                 </form>
+                <p
+                    v-for="(error, index) in loginErrors"
+                    :key="index"
+                    class="login-errors"
+                >{{ error }}</p>
 			</v-card>
 		</v-flex>
 	</v-layout>
@@ -33,6 +38,7 @@ export default {
 	data() {
       return {
         file: null,
+        errors: [],
       }
     },
 	methods: {
@@ -46,9 +52,9 @@ export default {
             data.append('file', this.file);
 
             StudentsApi.uploadFile(data).then(() => {
-				alert("ok");
+                this.errors.push(error.response.data);
 			}).catch((error) => {
-				alert("notok");
+				this.errors.push(error.response.data);
 			});
         },
 	},

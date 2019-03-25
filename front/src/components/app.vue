@@ -9,7 +9,7 @@
 			<v-toolbar-items>
 				<v-btn
 					flat
-					v-for="item in toolbarItems"
+					v-for="item in toolbarItems[isLoggedIn]"
 					:key="item.text"
 					:to="item.path"
 				>
@@ -33,24 +33,20 @@ export default {
 	name: 'app',
 	data() {
 		return {
-			// toolbarItems: {
-			// 	'loggedIn': [
-			// 		{ icon: 'fas fa-code-branch ', text: 'Perk trees', path: '/trees' },
-			// 		{ icon: 'account_circle', text: 'Admin panel', path: '/admin' },
-			// 		{ icon: 'exit_to_app', text: 'Logout', path: '/logout' },
-			// 	],
-			// 	'loggedOut': [{ icon: 'lock_open', text: 'Login', path: '/login' }],
-			// },
-			toolbarItems: [
-				{ icon: 'fas fa-user-cog', text: 'Admin panel', path: '/admin' },
-				{ icon: 'fas fa-code-branch', text: 'Perk trees', path: '/trees' },
-			],
+			toolbarItems: {
+				'true': [
+					{ icon: 'fas fa-user-cog', text: 'Logout', path: '/logout' },
+				],
+				'false': [
+					{ icon: 'lock_open', text: 'Login', path: '/login' },
+				],
+			},
 		};
 	},
 	computed: {
 		...mapGetters(['token']),
-		authStatus() {
-			return this.token ? 'loggedIn' : 'loggedOut';
+		isLoggedIn() {
+			return this.token ? true : false;
 		},
 	},
 	mounted() {
