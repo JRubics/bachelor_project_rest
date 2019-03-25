@@ -11,6 +11,7 @@ import Router from 'vue-router';
 import Index from './components/index.component';
 import Login from './components/auth/login.component';
 import Signup from './components/auth/signup.component';
+import UploadFile from './components/upload-file.component';
 
 import AuthController from './controllers/auth.controller';
 
@@ -23,6 +24,15 @@ const router = new Router({
 			path: '/',
 			name: 'index',
 			component: Index,
+			meta: {
+				guest: true,
+				// moze ako nisilogovan
+			},
+		},
+		{
+			path: '/',
+			name: 'upload-file',
+			component: UploadFile,
 			meta: {
 				guest: true,
 				// moze ako nisilogovan

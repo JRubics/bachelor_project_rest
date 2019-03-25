@@ -50,7 +50,7 @@ export default {
 			};
 
 			AuthController.login(data).then(() => {
-				this.$router.push({ name: 'index' });
+				this.$router.push({ name: 'upload-file' });
 			}).catch((error) => {
 				this.loginErrors.push(error.response.data);
 			});
