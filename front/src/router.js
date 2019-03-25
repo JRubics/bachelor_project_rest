@@ -35,7 +35,6 @@ const router = new Router({
 			component: UploadFile,
 			meta: {
 				guest: true,
-				// moze ako nisilogovan
 			},
 		},
 		{
