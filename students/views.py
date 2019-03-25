@@ -12,15 +12,16 @@ class HelloView(APIView):
         return Response(content)
 
 class UploadFileView(APIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         document = request.FILES.get('file')
-        if document.size > 1024:    #bytes, change this value
+        if document.size > 1024:
             messages.error(request, "File too big")
             return render(request, 'students/upload_document.html')
         fs = FileSystemStorage()
         filename = fs.save(document.name, document)
+
         # assignment = Assignment.objects.create(student=request.user, filename=filename);
 
         # uploaded_file_url = fs.url(filename)

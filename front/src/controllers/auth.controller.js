@@ -11,36 +11,31 @@ import store from '../store';
 
 export default class AuthController {
 	static setLocalStorageToken(data) {
-		if (data.refresh) {
-			localStorage.setItem('refresh', data.refresh);
-		}
 		if (data.token) {
-			localStorage.setItem('access', data.token);
+			localStorage.setItem('token', data.token);
 		}
 	}
 
 	static getLocalStorageToken() {
 		const tokens = {
-			access: localStorage.getItem('access'),
-			refresh: localStorage.getItem('refresh'),
+			token: localStorage.getItem('token'),
 		};
 
 		return tokens;
 	}
 
 	static getLocalStorageRefresh() {
-		return localStorage.getItem('access');
+		return localStorage.getItem('token');
 	}
 
 	static clearLocalStorageToken() {
-		localStorage.removeItem('refresh');
-		localStorage.removeItem('access');
+		localStorage.removeItem('token');
 	}
 
 	static setupToken() {
-		const access = this.getLocalStorageToken().access;
-		AuthApi.setAuthHeader(access);
-		store.commit('setToken', access);
+		const token = this.getLocalStorageToken().token;
+		AuthApi.setAuthHeader(token);
+		store.commit('setToken', token);
 	}
 
 	static login(data) {
@@ -65,30 +60,15 @@ export default class AuthController {
 	}
 
 	static verifyToken() {
-		const token = this.getLocalStorageToken().access;
+		const token = this.getLocalStorageToken().token;
 		if (token === null) {
 			router.push('login');
 		}
 		return AuthApi.verifyToken({ token });
 	}
 
-	static refreshToken() {
-		if (!this.getLocalStorageRefresh()) {
-			return Promise.reject(new Error('No token'));
-		}
-
-		const refresh = {
-			refresh: this.getLocalStorageToken().refresh,
-		};
-
-		return AuthApi.refreshToken(refresh).then((response) => {
-			this.setLocalStorageToken(response.data);
-			this.setupToken();
-		});
-	}
-
 	static getAuthStatus() {
-		const token = this.getLocalStorageToken().access;
+		const token = this.getLocalStorageToken().token;
 		return Boolean(token);
 	}
 }

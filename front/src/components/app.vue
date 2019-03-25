@@ -54,7 +54,7 @@ export default {
 		},
 	},
 	mounted() {
-		AuthController.refreshToken();
+		AuthController.setupToken();
 	},
 };
 </script>

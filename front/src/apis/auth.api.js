@@ -17,7 +17,7 @@ const AUTH_HEADER = 'Authorization';
 
 export default class AuthApi {
 	static setAuthHeader(token) {
-		Axios.defaults.headers.common[AUTH_HEADER] = `Bearer ${token}`;
+		Axios.defaults.headers.common[AUTH_HEADER] = `Token ${token}`;
 	}
 
 	static login(data) {
@@ -38,10 +38,6 @@ export default class AuthApi {
 
 	static verifyToken(token) {
 		return Axios.post(ENDPOINTS.VERIFY, token);
-	}
-
-	static refreshToken(refresh) {
-		return Axios.post(ENDPOINTS.REFRESH, refresh);
 	}
 }
 
