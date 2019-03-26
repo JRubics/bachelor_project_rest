@@ -6,9 +6,9 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 Vue.use(Vuetify, {
 	theme: {
-		primary: '#458588',
+		primary: '#392648',
 		secondary: '#282828',
-		accent: '#689d6a',
+		accent: '#458588',
 		error: '#cc241d',
 		info: '#458588',
 		success: '#98971a',

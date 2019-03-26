@@ -12,7 +12,7 @@
                             <v-card-text>{{file ? file.name:""}}</v-card-text>
                         </v-flex>
                         <v-flex md2>
-                            <v-btn type="submit" v-if="file">Submit</v-btn>
+                            <v-btn class=primary type="submit" v-if="file">Submit</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>
