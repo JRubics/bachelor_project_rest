@@ -6,7 +6,7 @@
                 <form @submit="submit">
                     <v-layout>
                         <v-flex md2>
-                            <upload-btn :fileChangedCallback="upload"></upload-btn>
+                            <upload-btn :fileChangedCallback="upload" class="upload-button"></upload-btn>
                         </v-flex>
                         <v-flex md8>
                             <v-card-text>{{file ? file.name:""}}</v-card-text>
@@ -65,4 +65,7 @@ export default {
 .upload-file-form-card
 	padding 2rem
 	margin-top 5rem
+
+.upload-button
+	padding-left 0px !important
 </style>
