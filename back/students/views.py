@@ -8,7 +8,6 @@ import time, calendar;
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (TokenAuthentication,)
 
     def get(self, request):
         content = {'message': 'Hello, World!'}
@@ -16,7 +15,6 @@ class HelloView(APIView):
 
 class UploadFileView(APIView):
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (TokenAuthentication,)
 
     def post(self, request):
         document = request.FILES.get('file')

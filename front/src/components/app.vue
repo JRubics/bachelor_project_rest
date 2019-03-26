@@ -9,7 +9,7 @@
 			<v-toolbar-items>
 				<v-btn
 					flat
-					v-for="item in toolbarItems[isLoggedIn]"
+					v-for="item in toolbarItems[authStatus]"
 					:key="item.text"
 					:to="item.path"
 				>
@@ -44,13 +44,14 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['token']),
-		isLoggedIn() {
-			return this.token ? true : false;
-		},
+		...mapGetters(['authStatus']),
 	},
 	mounted() {
-		AuthController.setupToken();
+		AuthController.refreshToken().catch(() => {
+			if (!this.$route.meta.guest) {
+				this.$router.push({ name: 'index' });
+			}
+		});
 	},
 };
 </script>

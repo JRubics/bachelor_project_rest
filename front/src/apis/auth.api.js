@@ -8,28 +8,19 @@
 import Axios from 'axios';
 
 const ENDPOINTS = {
-	LOGIN: '/token/',
-	VERIFY: '/token/verify/',
-	REFRESH: '/token/refresh/',
-	USER: '/user/',
+	LOGIN: '/token',
+	VERIFY: '/token/verify',
+	REFRESH: '/token/refresh',
 };
 const AUTH_HEADER = 'Authorization';
 
 export default class AuthApi {
 	static setAuthHeader(token) {
-		Axios.defaults.headers.common[AUTH_HEADER] = `Token ${token}`;
+		Axios.defaults.headers.common[AUTH_HEADER] = `Bearer ${token}`;
 	}
 
 	static login(data) {
 		return Axios.post(ENDPOINTS.LOGIN, data);
-	}
-
-	static getUser() {
-		return Axios.get(ENDPOINTS.USER);
-	}
-
-	static signup(data) {
-		return Axios.post(ENDPOINTS.USER, data);
 	}
 
 	static changePassword(data) {
@@ -39,5 +30,8 @@ export default class AuthApi {
 	static verifyToken(token) {
 		return Axios.post(ENDPOINTS.VERIFY, token);
 	}
-}
 
+	static refreshToken(refresh) {
+		return Axios.post(ENDPOINTS.REFRESH, refresh);
+	}
+}

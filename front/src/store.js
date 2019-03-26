@@ -11,19 +11,19 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-	token: null,
+	authStatus: false,
 };
 
 const getters = {
-	token: (state) => state.token,
+	authStatus: (state) => state.authStatus,
 };
 
 const mutations = {
-	setToken(token) {
-		state.token = token;
+	login() {
+		state.authStatus = true;
 	},
-	clearToken() {
-		state.token = '';
+	logout() {
+		state.authStatus = false;
 	},
 };
 

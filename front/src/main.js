@@ -39,7 +39,6 @@ const configureHttp = () => {
 };
 
 configureHttp();
-AuthController.setupToken();
 
 new Vue({
 	router,
