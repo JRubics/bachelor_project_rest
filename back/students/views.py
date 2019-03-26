@@ -4,6 +4,7 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.core.files.storage import FileSystemStorage
+import time, calendar;
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -23,7 +24,7 @@ class UploadFileView(APIView):
             content = {'message': 'File too big'}
             return Response(content)
         fs = FileSystemStorage()
-        filename = fs.save(document.name, document)
+        filename = fs.save("assignments/"+request.user.username+"/"+ str(calendar.timegm(time.gmtime())) +document.name, document)
 
         # assignment = Assignment.objects.create(student=request.user, filename=filename);
 
