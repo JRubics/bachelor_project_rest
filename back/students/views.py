@@ -21,7 +21,7 @@ class UploadFileView(APIView):
     def post(self, request):
         document = request.FILES.get('file')
         if document.size > 1024:
-            content = {'message': 'File too big'}
+            content = {'error': 'File too big'}
             return Response(content)
         fs = FileSystemStorage()
         filename = fs.save("assignments/"+request.user.username+"/"+ str(calendar.timegm(time.gmtime())) +document.name, document)
@@ -32,5 +32,5 @@ class UploadFileView(APIView):
         # return render(request, 'students/upload_document.html', {
         #     'uploaded_file_url': uploaded_file_url
         # })
-        content = {'message': 'Hello, World!'}
+        content = {}
         return Response(content)

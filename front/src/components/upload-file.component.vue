@@ -51,7 +51,12 @@ export default {
             const data = new FormData();
             data.append('file', this.file);
 
-            StudentsApi.uploadFile(data).then(() => {
+            StudentsApi.uploadFile(data).then((response) => {
+                if(response.data.error){
+                    alert(response.data.error)
+                }else{
+                    alert("ok")
+                }
                 this.errors.push(error.response.data);
 			}).catch((error) => {
 				this.errors.push(error.response.data);
