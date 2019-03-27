@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'bachelor.localhost',
     '127.0.0.1',
+    'localhost',
 ]
 
 REST_FRAMEWORK = {
