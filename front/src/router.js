@@ -12,6 +12,7 @@ import Index from './components/index.component';
 import Login from './components/auth/login.component';
 import Signup from './components/auth/signup.component';
 import UploadFile from './components/upload-file.component';
+import Home from './components/home.component';
 
 import AuthController from './controllers/auth.controller';
 
@@ -33,6 +34,11 @@ const router = new Router({
 			path: '/upload-file',
 			name: 'upload-file',
 			component: UploadFile,
+		},
+		{
+			path: '/home',
+			name: 'home',
+			component: Home,
 		},
 		{
 			path: '/login',

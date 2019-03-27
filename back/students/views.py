@@ -28,9 +28,5 @@ class UploadFileView(APIView):
 
         assignment = Assignment.objects.create(user=request.user, filepath=filepath);
 
-        # uploaded_file_url = fs.url(filename)
-        # return render(request, 'students/upload_document.html', {
-        #     'uploaded_file_url': uploaded_file_url
-        # })
         content = {}
         return Response(content)
