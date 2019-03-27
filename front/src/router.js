@@ -12,6 +12,7 @@ import Index from './components/index.component';
 import Login from './components/auth/login.component';
 import Signup from './components/auth/signup.component';
 import UploadFile from './components/upload-file.component';
+import Assignments  from './components/assignments.component';
 import Home from './components/home.component';
 
 import AuthController from './controllers/auth.controller';
@@ -39,6 +40,11 @@ const router = new Router({
 			path: '/home',
 			name: 'home',
 			component: Home,
+		},
+		{
+			path: '/assignments',
+			name: 'assignments',
+			component: Assignments,
 		},
 		{
 			path: '/login',
