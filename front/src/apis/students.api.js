@@ -12,7 +12,6 @@ const ENDPOINTS = {
 };
 
 export default class StudentsApi {
-
 	static uploadFile(data) {
 		return Axios.post(ENDPOINTS.FILE, data);
 	}

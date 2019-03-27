@@ -33,29 +33,29 @@ import StudentsApi from '../apis/students.api';
 export default {
 	name: 'UploadFile',
 	components: {
-        'upload-btn': UploadButton
+        'upload-btn': UploadButton,
 	},
 	data() {
       return {
         file: null,
         errors: [],
-      }
+      };
     },
 	methods: {
-        upload(file){
+        upload(file) {
             this.file = file;
         },
-        submit(event){
+        submit(event) {
             event.preventDefault();
 
             const data = new FormData();
             data.append('file', this.file);
 
             StudentsApi.uploadFile(data).then((response) => {
-                if(response.data.error){
-                    alert(response.data.error)
-                }else{
-                    alert("ok")
+                if (response.data.error) {
+                    alert(response.data.error);
+                } else {
+                    alert('ok');
                 }
                 this.errors.push(error.response.data);
 			}).catch((error) => {
