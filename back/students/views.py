@@ -6,6 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from django.core.files.storage import FileSystemStorage
 import time, calendar;
 from .models import Assignment
+from .serializers import AssignmentSerializer
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -35,5 +36,6 @@ class AssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        content = {'message': 'Hello, API!'}
-        return Response(content)
+        assignments = Assignment.objects.all()
+        serializer = AssignmentSerializer(assignments, many=True)
+        return Response(serializer.data)
