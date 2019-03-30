@@ -17,7 +17,7 @@
                     </v-layout>
                 </form>
                 <p
-                    v-for="(error, index) in loginErrors"
+                    v-for="(error, index) in errors"
                     :key="index"
                     class="login-errors"
                 >{{ error }}</p>
@@ -53,9 +53,9 @@ export default {
 
             StudentsApi.uploadFile(data).then((response) => {
                 if (response.data.error) {
-                    alert(response.data.error);
+                    this.errors.push(response.data.error);
                 } else {
-                    alert('ok');
+                    this.$router.go(0);
                 }
                 this.errors.push(error.response.data);
 			}).catch((error) => {

@@ -1,5 +1,3 @@
-# perktree
-
 ## Project setup
 ```
 yarn install

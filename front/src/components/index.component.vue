@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<h1>Welcome to Perktree</h1>
+		<h1>Welcome to Assignments</h1>
 	</v-container>
 </template>
 

@@ -3,9 +3,20 @@
 		<v-flex md12 lg8 offset-lg2>
 			<v-card class="assignments-card">
 				<h2>Assignments</h2>
-                
+                <v-data-table
+					:headers="headers"
+					:items="assignments"
+					:pagination.sync=pagination
+					class="elevation-1"
+				>
+					<template v-slot:items="props">
+						<td>{{ props.item.id }}</td>
+						<td>{{ props.item.filepath }}</td>
+						<td>{{ props.item.result ? props.item.result: "in progress" }}</td>
+					</template>
+				</v-data-table>
                 <p
-                    v-for="(error, index) in loginErrors"
+                    v-for="(error, index) in errors"
                     :key="index"
                     class="login-errors"
                 >{{ error }}</p>
@@ -23,18 +34,28 @@ export default {
 	},
 	data () {
 		return {
-			assignments: null,
+			errors: null,
+			assignments: [],
+			headers: [
+				{ text: 'ID', value: 'id' },
+				{ text: 'Path', value: 'path' },
+				{ text: 'Result', value: 'result' },
+			],
+			pagination: {
+				descending: true,
+				sortBy: 'id',
+				rowsPerPage: 5,
+			}
 		};
 	},
 	methods: {
     },
     mounted() {
 		StudentsApi.getAssignments().then((response) => {
-            alert("aaa");
             this.assignments = response.data;
-            alert(JSON.stringify(response.data));
-        });
-        alert("aaa");
+        }).catch((error) => {
+			this.errors.push(error.response.data);
+		});
 	},
 };
 </script>
