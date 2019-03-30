@@ -47,11 +47,6 @@ export default {
 		...mapGetters(['authStatus']),
 	},
 	mounted() {
-		AuthController.refreshToken().catch(() => {
-			if (!this.$route.meta.guest) {
-				this.$router.push({ name: 'index' });
-			}
-		});
 	},
 };
 </script>

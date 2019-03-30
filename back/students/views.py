@@ -30,3 +30,10 @@ class UploadFileView(APIView):
 
         content = {}
         return Response(content)
+
+class AssignmentView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        content = {'message': 'Hello, API!'}
+        return Response(content)

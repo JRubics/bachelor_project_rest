@@ -10,6 +10,8 @@ import store from './store';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
+import AuthController from './controllers/auth.controller.js';
+
 Vue.config.productionTip = false;
 
 const configureHttp = () => {
@@ -37,6 +39,9 @@ const configureHttp = () => {
 };
 
 configureHttp();
+
+AuthController.refreshToken();
+AuthController.setupToken();//FIKSAJ!!!! event + listeneri
 
 new Vue({
 	router,

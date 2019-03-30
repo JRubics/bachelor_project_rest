@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import StudentsApi from '../apis/students.api';
 
 export default {
 	name: 'Assignments',
@@ -22,9 +23,18 @@ export default {
 	},
 	data () {
 		return {
+			assignments: null,
 		};
 	},
 	methods: {
+    },
+    mounted() {
+		StudentsApi.getAssignments().then((response) => {
+            alert("aaa");
+            this.assignments = response.data;
+            alert(JSON.stringify(response.data));
+        });
+        alert("aaa");
 	},
 };
 </script>
