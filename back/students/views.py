@@ -7,6 +7,7 @@ from django.core.files.storage import FileSystemStorage
 import time, calendar;
 from .models import Assignment
 from .serializers import AssignmentSerializer
+from . import script
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -28,6 +29,8 @@ class UploadFileView(APIView):
         fs.save(filepath, document)
 
         assignment = Assignment.objects.create(user=request.user, filepath=filepath);
+
+        script.run_container()
 
         content = {}
         return Response(content)
