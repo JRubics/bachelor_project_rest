@@ -45,7 +45,7 @@ export default {
 				descending: true,
 				sortBy: 'id',
 				rowsPerPage: 5,
-			}
+			},
 		};
 	},
 	methods: {

@@ -41,7 +41,7 @@ const configureHttp = () => {
 configureHttp();
 
 AuthController.refreshToken();
-AuthController.setupToken();//FIKSAJ!!!! event + listeneri
+AuthController.setupToken(); // FIKSAJ!!!! event + listeneri
 
 new Vue({
 	router,
