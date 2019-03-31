@@ -6,13 +6,15 @@ services:
     restart: unless-stopped
     container_name: jelena_bachelor_db
     volumes:
-       - ./db:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data
   back:
     build: back/.
     env_file: 
       - ./back/.env
     restart: unless-stopped
     container_name: jelena_bachelor_back
+    volumes:
+      - ./back/assignments:/app/assignments
     ports:
       - "8000:80"
     links:
