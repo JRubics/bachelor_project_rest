@@ -4,4 +4,4 @@ from .models import Assignment
 class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
-        fields = ('id', 'user', 'filepath', 'result')
+        fields = ('id', 'user', 'filepath', 'filename', 'result', 'date_added')

@@ -11,7 +11,8 @@
 				>
 					<template v-slot:items="props">
 						<td>{{ props.item.id }}</td>
-						<td>{{ props.item.filepath }}</td>
+						<td>{{ props.item.filename }}</td>
+						<td>{{ props.item.date_added }}</td>
 						<td>{{ props.item.result ? props.item.result: "in progress" }}</td>
 					</template>
 				</v-data-table>
@@ -39,6 +40,7 @@ export default {
 			headers: [
 				{ text: 'ID', value: 'id' },
 				{ text: 'Path', value: 'path' },
+				{ text: 'Time', value: 'time' },
 				{ text: 'Result', value: 'result' },
 			],
 			pagination: {

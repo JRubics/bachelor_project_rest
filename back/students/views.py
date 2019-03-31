@@ -8,6 +8,7 @@ import time, calendar;
 from .models import Assignment
 from .serializers import AssignmentSerializer
 from . import script
+from datetime import datetime
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -25,10 +26,10 @@ class UploadFileView(APIView):
             content = {'error': 'File too big'}
             return Response(content)
         fs = FileSystemStorage()
-        filepath = "assignments/"+request.user.username+"/"+ str(calendar.timegm(time.gmtime())) +document.name
+        filepath = "assignments/" + request.user.username + "/" + str(calendar.timegm(time.gmtime())) + document.name
         fs.save(filepath, document)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=filepath);
+        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=document.name, date_added=datetime.now());
 
         script.run_container()
 
