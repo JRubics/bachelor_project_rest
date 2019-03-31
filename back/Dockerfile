@@ -11,6 +11,7 @@ RUN set -ex \
 	&& apk add --no-cache \
 		postgresql-dev \
 	&& pip install -r requirements.txt \
-	&& apk del .build-deps
+	&& apk del .build-deps \
+	&& apk add docker
 
 CMD ["./entrypoint.sh"]
