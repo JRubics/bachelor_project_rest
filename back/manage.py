@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 import os
 import sys
+import dotenv
 
 if __name__ == '__main__':
+    if os.environ.get('ENVIRONMENT', '') != "PRODUCTION":
+        dotenv.read_dotenv()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bachelor_project_rest.settings')
     try:
         from django.core.management import execute_from_command_line

@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'hv8zahki7!h5na&d2t!mn8ij%vgbkzt6mk-i$ecx#8#9)!7k_2'
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,10 +84,15 @@ WSGI_APPLICATION = 'bachelor_project_rest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ.get('DB_ENGINE', ''),
+        'NAME': os.path.join(BASE_DIR, os.environ.get('DB_NAME', '')) if os.environ.get('ENVIRONMENT')=='DEVELOPMENT' else os.environ.get('DB_NAME', ''),
+        'USER': os.environ.get('DB_USER', ''),
+        'HOST': os.environ.get('DB_HOST', ''),
+        'PORT': os.environ.get('DB_PORT', ''),
+        'ATOMIC_REQUESTS': True
     }
 }
 
