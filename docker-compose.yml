@@ -7,13 +7,21 @@ services:
     container_name: jelena_bachelor_db
     volumes:
        - ./db:/var/lib/postgresql/data
-  web:
-    build: .
+  back:
+    build: back/.
     env_file: 
-      - ".env"
+      - ./back/.env
     restart: unless-stopped
-    container_name: jelena_bachelor_web
+    container_name: jelena_bachelor_back
     ports:
       - "8000:80"
     links:
       - db
+  front:
+    build: front/.
+    restart: unless-stopped
+    container_name: jelena_bachelor_front
+    ports:
+      - 8080:80
+    links:
+      - back
