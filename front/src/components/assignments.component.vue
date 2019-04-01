@@ -39,7 +39,7 @@ export default {
 			assignments: [],
 			headers: [
 				{ text: 'ID', value: 'id' },
-				{ text: 'Path', value: 'path' },
+				{ text: 'Filename', value: 'filename' },
 				{ text: 'Time', value: 'time' },
 				{ text: 'Result', value: 'result' },
 			],
