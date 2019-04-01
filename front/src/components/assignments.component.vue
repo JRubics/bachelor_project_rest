@@ -54,7 +54,6 @@ export default {
 		upload() {
 			StudentsApi.getLastAssignment().then((response) => {
 				this.assignments.push(response.data);
-				this.selected = [];
 			}).catch((error) => {
 				this.errors.push(error.response.data);
 			});
