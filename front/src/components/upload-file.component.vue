@@ -55,9 +55,8 @@ export default {
                 if (response.data.error) {
                     this.errors.push(response.data.error);
                 } else {
-                    this.$router.go(0);
+                    this.$emit('upload');
                 }
-                this.errors.push(error.response.data);
 			}).catch((error) => {
 				this.errors.push(error.response.data);
 			});

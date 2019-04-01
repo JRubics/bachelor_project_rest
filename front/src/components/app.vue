@@ -27,26 +27,18 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import AuthController from '../controllers/auth.controller.js';
-
 export default {
 	name: 'app',
 	data() {
 		return {
 			toolbarItems: {
-				'true': [
-					{ icon: 'fas fa-user-cog', text: 'Logout', path: '/logout' },
-				],
-				'false': [
-					{ icon: 'lock_open', text: 'Login', path: '/login' },
-				],
+				'true': [{ icon: 'fas fa-user-cog', text: 'Logout', path: '/logout' }],
+				'false': [{ icon: 'lock_open', text: 'Login', path: '/login' }],
 			},
 		};
 	},
 	computed: {
 		...mapGetters(['authStatus']),
-	},
-	mounted() {
 	},
 };
 </script>

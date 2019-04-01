@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 import time, calendar;
 from .models import Assignment
 from .serializers import AssignmentSerializer
-from . import script
+from .docker import script
 from datetime import datetime
 
 class HelloView(APIView):
@@ -42,4 +42,12 @@ class AssignmentView(APIView):
     def get(self, request):
         assignments = Assignment.objects.filter(user=request.user.id)
         serializer = AssignmentSerializer(assignments, many=True)
+        return Response(serializer.data)
+
+class LastAssignmentView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        assignment = Assignment.objects.filter(user=request.user.id).last()
+        serializer = AssignmentSerializer(assignment)
         return Response(serializer.data)

@@ -51,11 +51,19 @@ export default {
 		};
 	},
 	methods: {
+		upload() {
+			StudentsApi.getLastAssignment().then((response) => {
+				this.assignments.push(response.data);
+				this.selected = [];
+			}).catch((error) => {
+				this.errors.push(error.response.data);
+			});
+		},
     },
     mounted() {
 		StudentsApi.getAssignments().then((response) => {
-            this.assignments = response.data;
-        }).catch((error) => {
+			this.assignments = response.data;
+		}).catch((error) => {
 			this.errors.push(error.response.data);
 		});
 	},
