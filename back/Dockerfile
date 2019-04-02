@@ -1,17 +1,25 @@
 FROM python:3-alpine
 
-WORKDIR /app
-ADD . /app
 EXPOSE 80
 
+WORKDIR /app
+COPY requirements.txt /app
 RUN set -ex \
 	&& apk add --no-cache --virtual .build-deps \
 		gcc \
 		musl-dev \
 	&& apk add --no-cache \
 		postgresql-dev \
+		python2 \
+		py2-pip \
+		docker \
 	&& pip install -r requirements.txt \
-	&& apk del .build-deps \
-	&& apk add docker
+	&& pip2 install supervisor \
+	&& apk del .build-deps
 
-CMD ["./entrypoint.sh"]
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+COPY . /app
+
+ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/conf.d/supervisord.conf"]

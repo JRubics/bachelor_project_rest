@@ -2,7 +2,7 @@
 FROM node:alpine as builder
 
 WORKDIR /app
-ADD . /app
+COPY . /app
 RUN set -ex \
 	&& apk add --no-cache yarn \
 	&& yarn install \

@@ -8,7 +8,9 @@ import time, calendar;
 from .models import Assignment
 from .serializers import AssignmentSerializer
 from .docker import script
+from django.utils.timezone import get_current_timezone
 from datetime import datetime
+import threading
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -29,9 +31,10 @@ class UploadFileView(APIView):
         filepath = "assignments/" + request.user.username + "/" + str(calendar.timegm(time.gmtime())) + document.name
         fs.save(filepath, document)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=document.name, date_added=datetime.now());
+        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=document.name, date_added=datetime.now(tz=get_current_timezone()));
 
-        script.run_container()
+        t = threading.Thread(target=script.run_container, kwargs={'callback': script.finished})
+        t.start()
 
         content = {}
         return Response(content)

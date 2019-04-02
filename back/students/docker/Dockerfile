@@ -7,9 +7,9 @@ ARG zad
 ENV zad=${zad}
 
 WORKDIR /app
-ADD fixtures /app/fixtures
+COPY fixtures /app/fixtures
 
 CMD smoke_test $zad
 
-ADD $zad /app
+COPY $zad /app
 

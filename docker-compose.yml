@@ -16,7 +16,6 @@ services:
     container_name: jelena_bachelor_back
     volumes:
       - ./back/assignments:/app/assignments
-      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8000:80
     links:
