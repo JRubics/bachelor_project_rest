@@ -56,6 +56,7 @@ export default {
                     this.errors.push(response.data.error);
                 } else {
                     this.$emit('upload');
+                    this.file = null;
                 }
 			}).catch((error) => {
 				this.errors.push(error.response.data);
