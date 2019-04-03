@@ -28,12 +28,14 @@ class UploadFileView(APIView):
             content = {'error': 'File too big'}
             return Response(content)
         fs = FileSystemStorage()
-        filepath = "assignments/" + request.user.username + "/" + str(calendar.timegm(time.gmtime())) + document.name
-        fs.save(filepath, document)
+        filename = document.name
+        filepath = "assignments/" + request.user.username + "/" + str(calendar.timegm(time.gmtime())) + filename
+        savepath = "students/docker/" + filepath
+        fs.save(savepath, document)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=document.name, date_added=datetime.now(tz=get_current_timezone()));
+        assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()));
 
-        t = threading.Thread(target=script.run_container, kwargs={'callback': script.finished})
+        t = threading.Thread(target=script.run_container, kwargs={'callback': script.finished, 'filepath': filepath, 'tag': assignment.id})
         t.start()
 
         content = {}

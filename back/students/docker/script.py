@@ -1,10 +1,10 @@
 import docker
+import os
 
-def run_container(callback=None):
+def run_container(callback, filepath, tag):
     client = docker.from_env()
-    image, logs = client.images.build(path = "./students/docker", tag='qwe', dockerfile='./Dockerfile', buildargs={'zad': 'test.c'})
-    if callback is not None:
-        callback(image)
+    image, logs = client.images.build(path = "./students/docker", tag=tag, dockerfile='./Dockerfile', buildargs={'filepath': filepath, 'filename': os.path.basename(filepath)})
+    callback(image)
 
 def finished(image):
     print('finished')
