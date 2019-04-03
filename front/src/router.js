@@ -66,27 +66,6 @@ const router = new Router({
 			path: '/logout',
 			name: 'logout',
 		},
-		{
-			path: '/admin',
-			name: 'admin-panel',
-			component: () => import(/* webpackChunkName: "admin" */ './components/admin-panel.component'),
-		},
-		{
-			path: '/trees',
-			name: 'trees',
-			component: () => import(/* webpackChunkName: "perks" */ './components/trees.component'),
-			meta: {
-				guest: true,
-			},
-		},
-		{
-			path: '/perks/:tree',
-			name: 'perks',
-			component: () => import(/* webpackChunkName: "perks" */ './components/perks.component'),
-			meta: {
-				guest: true,
-			},
-		},
 	],
 });
 
