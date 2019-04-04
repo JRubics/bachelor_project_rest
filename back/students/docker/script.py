@@ -11,4 +11,7 @@ def finished(image):
     print(image)
 
     client = docker.from_env()
+    save = image.save(named=True)
+    print(save)
+
     client.images.remove(image=image.id)
