@@ -1,7 +1,7 @@
 import docker
 import os
 
-def run_container(filepath, tag):
+def build_image(filepath, tag):
     client = docker.from_env()
     repository = os.environ.get('REGISTRY_URL', '') + '/assignments'
 
