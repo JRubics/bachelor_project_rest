@@ -11,6 +11,7 @@ from .docker import script
 from django.utils.timezone import get_current_timezone
 from datetime import datetime
 import requests
+import json
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -37,9 +38,10 @@ class UploadFileView(APIView):
 
         script.build_image(filepath=filepath, tag=assignment.id)
 
-        # requests.post('', params={id=assignment.id})
+        r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'id':assignment.id})
+        print(r.text)
         content = {}
-        return Response(content)
+        return Response(r)
 
 class AssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
