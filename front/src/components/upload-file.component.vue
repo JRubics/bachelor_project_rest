@@ -52,6 +52,7 @@ export default {
             data.append('file', this.file);
 
             StudentsApi.uploadFile(data).then((response) => {
+                alert(response.data);
                 if (response.data.error) {
                     this.errors.push(response.data.error);
                 } else {

@@ -17,7 +17,7 @@ services:
     volumes:
       - ./back/assignments:/app/assignments
     ports:
-      - 8000:80
+      - 8022:80
     links:
       - db
   front:
@@ -25,6 +25,6 @@ services:
     restart: unless-stopped
     container_name: jelena_bachelor_front
     ports:
-      - 8080:80
+      - 8021:80
     links:
       - back
