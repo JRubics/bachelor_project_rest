@@ -9,6 +9,7 @@ services:
       - ./db:/var/lib/postgresql/data
   back:
     build: back/.
+    image: bachelor_project_rest_back
     privileged: true
     env_file: 
       - ./back/.env
@@ -22,6 +23,7 @@ services:
       - db
   front:
     build: front/.
+    image: bachelor_project_rest_front
     restart: unless-stopped
     container_name: jelena_bachelor_front
     ports:

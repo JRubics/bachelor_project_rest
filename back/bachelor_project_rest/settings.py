@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     'bachelor.localhost',
     '127.0.0.1',
     'localhost',
+    'bachelor.theedgeofrage.com',
 ]
 
 REST_FRAMEWORK = {
