@@ -10,7 +10,7 @@ from .serializers import AssignmentSerializer
 from .docker import script
 from django.utils.timezone import get_current_timezone
 from datetime import datetime
-import threading
+import requests
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -35,9 +35,9 @@ class UploadFileView(APIView):
 
         assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()));
 
-        t = threading.Thread(target=script.run_container, kwargs={'callback': script.finished, 'filepath': filepath, 'tag': assignment.id})
-        t.start()
+        script.build_image(filepath=filepath, tag=assignment.id)
 
+        # requests.post('', params={id=assignment.id})
         content = {}
         return Response(content)
 
