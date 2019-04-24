@@ -4,6 +4,9 @@ EXPOSE 80
 
 WORKDIR /app
 COPY requirements.txt /app
+COPY Pipfile.lock /app
+COPY Pipfile /app
+
 RUN set -ex \
 	&& apk add --no-cache --virtual .build-deps \
 		gcc \
@@ -13,7 +16,8 @@ RUN set -ex \
 		python2 \
 		py2-pip \
 		docker \
-	&& pip install -r requirements.txt \
+	&& pip install pipenv \
+	&& pipenv install --system \
 	&& pip2 install supervisor \
 	&& apk del .build-deps
 
