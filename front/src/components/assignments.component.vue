@@ -13,7 +13,10 @@
 						<td>{{ props.item.id }}</td>
 						<td>{{ props.item.filename }}</td>
 						<td>{{ props.item.date_added }}</td>
-						<td>{{ props.item.result ? props.item.result: "in progress" }}</td>
+						<td>
+							<v-btn color="primary" @click="result(props.item.result)" v-if="props.item.result">Result</v-btn>
+							<span v-if="!props.item.result">In progress</span>
+						</td>
 					</template>
 				</v-data-table>
                 <p
@@ -21,6 +24,7 @@
                     :key="index"
                     class="login-errors"
                 >{{ error }}</p>
+				<modal ref="modal"></modal>
 			</v-card>
 		</v-flex>
 	</v-layout>
@@ -28,10 +32,12 @@
 
 <script>
 import StudentsApi from '../apis/students.api';
+import Modal from '../components/modal.component';
 
 export default {
 	name: 'Assignments',
 	components: {
+		'modal': Modal,
 	},
 	data () {
 		return {
@@ -51,6 +57,9 @@ export default {
 		};
 	},
 	methods: {
+		result(text) {
+			this.$refs.modal.show(text);
+		},
 		upload() {
 			StudentsApi.getLastAssignment().then((response) => {
 				this.assignments.push(response.data);
