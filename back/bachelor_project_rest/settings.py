@@ -91,6 +91,7 @@ DATABASES = {
         'ENGINE': os.environ.get('DB_ENGINE', ''),
         'NAME': os.path.join(BASE_DIR, os.environ.get('DB_NAME', '')) if os.environ.get('ENVIRONMENT')=='DEVELOPMENT' else os.environ.get('DB_NAME', ''),
         'USER': os.environ.get('DB_USER', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', ''),
         'PORT': os.environ.get('DB_PORT', ''),
         'ATOMIC_REQUESTS': True
