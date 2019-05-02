@@ -57,14 +57,13 @@ export default {
             this.loading = true;
 
             StudentsApi.uploadFile(data).then((response) => {
-                alert(response.data);
                 if (response.data.error) {
                     this.errors.push(response.data.error);
                 } else {
                     this.$emit('upload');
                     this.file = null;
                 }
-                this.$refs.modal.upload();
+                this.$refs.modal.show(response.data);
 			}).catch((error) => {
 				this.errors.push(error.response.data);
 			}).finally(() => {
