@@ -34,14 +34,15 @@ class UploadFileView(APIView):
         savepath = "students/docker/" + filepath
         fs.save(savepath, document)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()));
+        assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()))
 
         script.build_image(filepath=filepath, tag=assignment.id)
 
         r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'id':assignment.id})
-        print(r.text)
-        content = {}
-        return Response(r)
+        assignment.result = r.json()['msg']
+        assignment.save()
+
+        return Response(assignment.result)
 
 class AssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
