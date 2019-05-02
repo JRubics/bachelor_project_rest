@@ -37,14 +37,14 @@
     data () {
       return {
         dialog: false,
-        text: null
-      }
+        text: null,
+      };
     },
     methods: {
 		show(text) {
             this.dialog = true;
-            this.text=text;
+            this.text = text;
 		},
 	},
-  }
+  };
 </script>
