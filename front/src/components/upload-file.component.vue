@@ -12,7 +12,7 @@
                             <v-card-text>{{file ? file.name:""}}</v-card-text>
                         </v-flex>
                         <v-flex md2>
-                            <v-btn color="accent" type="submit" v-if="file">Submit</v-btn>
+                            <v-btn color="accent" type="submit" :disabled="loading" v-if="file">Submit</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>
@@ -39,6 +39,7 @@ export default {
       return {
         file: null,
         errors: [],
+        loading: false,
       };
     },
 	methods: {
@@ -50,6 +51,7 @@ export default {
 
             const data = new FormData();
             data.append('file', this.file);
+            this.loading = true;
 
             StudentsApi.uploadFile(data).then((response) => {
                 alert(response.data);
@@ -61,7 +63,9 @@ export default {
                 }
 			}).catch((error) => {
 				this.errors.push(error.response.data);
-			});
+			}).finally(() => {
+                this.loading = false;
+            });
         },
 	},
 };
