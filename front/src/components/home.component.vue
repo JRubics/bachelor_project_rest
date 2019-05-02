@@ -13,8 +13,8 @@ import Assignments from '../components/assignments.component';
 export default {
 	name: 'Home',
 	components: {
-        'upload-file': UploadFile,
-        'assignments': Assignments,
+		'upload-file': UploadFile,
+		'assignments': Assignments,
 	},
 	data () {
 		return {

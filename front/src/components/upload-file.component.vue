@@ -21,6 +21,7 @@
                     :key="index"
                     class="login-errors"
                 >{{ error }}</p>
+                <modal ref="modal"></modal>
 			</v-card>
 		</v-flex>
 	</v-layout>
@@ -29,11 +30,13 @@
 <script>
 import UploadButton from 'vuetify-upload-button';
 import StudentsApi from '../apis/students.api';
+import Modal from '../components/modal.component';
 
 export default {
 	name: 'UploadFile',
 	components: {
         'upload-btn': UploadButton,
+        'modal': Modal,
 	},
 	data() {
       return {
@@ -61,6 +64,7 @@ export default {
                     this.$emit('upload');
                     this.file = null;
                 }
+                this.$refs.modal.upload();
 			}).catch((error) => {
 				this.errors.push(error.response.data);
 			}).finally(() => {
