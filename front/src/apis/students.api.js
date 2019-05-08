@@ -8,14 +8,13 @@
 import Axios from 'axios';
 
 const ENDPOINTS = {
-	FILE: '/students/upload-file/',
 	ASSIGNMENTS: '/students/assignments/',
 	LAST_ASSIGNMENT: '/students/assignments/last/',
 };
 
 export default class StudentsApi {
 	static uploadFile(data) {
-		return Axios.post(ENDPOINTS.FILE, data);
+		return Axios.post(ENDPOINTS.ASSIGNMENTS, data);
 	}
 
 	static getAssignments() {

@@ -13,15 +13,13 @@ from datetime import datetime
 import requests
 import json
 
-class HelloView(APIView):
+class AssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        content = {'message': 'Hello, World!'}
-        return Response(content)
-
-class UploadFileView(APIView):
-    permission_classes = (IsAuthenticated,)
+        assignments = Assignment.objects.filter(user=request.user.id)
+        serializer = AssignmentSerializer(assignments, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         document = request.FILES.get('file')
@@ -43,14 +41,6 @@ class UploadFileView(APIView):
         assignment.save()
 
         return Response(assignment.result)
-
-class AssignmentView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        assignments = Assignment.objects.filter(user=request.user.id)
-        serializer = AssignmentSerializer(assignments, many=True)
-        return Response(serializer.data)
 
 class LastAssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
