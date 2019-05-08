@@ -50,7 +50,7 @@ export default {
 			};
 
 			AuthController.login(data).then(() => {
-				this.$router.push({ name: 'home' });
+				this.$router.push({ name: 'index' });
 			}).catch((error) => {
 				this.loginErrors.push(error.response.data);
 			});
