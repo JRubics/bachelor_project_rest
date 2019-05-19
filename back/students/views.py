@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.core.files.storage import FileSystemStorage
 import time, calendar;
-from .models import Assignment
+from .models import Assignment, FixtureFile
 from .serializers import AssignmentSerializer
 from .docker import script
 from django.utils.timezone import get_current_timezone
@@ -23,6 +23,7 @@ class AssignmentView(APIView):
 
     def post(self, request):
         document = request.FILES.get('file')
+        fixture_id=1
         if document.size > 1024:
             content = {'error': 'File too big'}
             return Response(content)
@@ -32,9 +33,11 @@ class AssignmentView(APIView):
         savepath = "students/docker/" + filepath
         fs.save(savepath, document)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()))
+        fixture = FixtureFile.objects.get(id=fixture_id)
 
-        script.build_image(filepath=filepath, fixtures="fixtures/f1", tag=assignment.id)
+        assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()), fixture=fixture)
+
+        script.build_image(filepath=filepath, fixtures=fixture.fixturepath, tag=assignment.id)
 
         r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'id':assignment.id})
         r = r.json()

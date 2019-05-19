@@ -12,6 +12,7 @@
 					<template v-slot:items="props">
 						<td>{{ props.item.id }}</td>
 						<td>{{ props.item.filename }}</td>
+						<td>{{ props.item.fixture }}</td>
 						<td>{{ props.item.date_added }}</td>
 						<td>
 							<v-btn color="primary" @click="result(props.item.result)" v-if="props.item.result">Result</v-btn>
@@ -46,6 +47,7 @@ export default {
 			headers: [
 				{ text: 'ID', value: 'id' },
 				{ text: 'Filename', value: 'filename' },
+				{ text: 'Fixture', value: 'fixture' },
 				{ text: 'Time', value: 'time' },
 				{ text: 'Result', value: 'result' },
 			],
