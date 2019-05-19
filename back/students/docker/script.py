@@ -1,7 +1,7 @@
 import docker
 import os
 
-def build_image(filepath, tag):
+def build_image(filepath, fixtures, tag):
     client = docker.from_env()
     repository = os.environ.get('REGISTRY_URL', '') + '/assignments'
 
@@ -9,7 +9,7 @@ def build_image(filepath, tag):
     print('auth done')
 
     print('build start')
-    image, logs = client.images.build(path="./students/docker", dockerfile='./Dockerfile', rm=True, buildargs={'filepath': filepath, 'filename': os.path.basename(filepath)})
+    image, logs = client.images.build(path="./students/docker", dockerfile='./Dockerfile', rm=True, buildargs={'filepath': filepath, 'filename': os.path.basename(filepath), 'fixtures': fixtures})
     image.tag(repository=repository, tag=tag)
     print('build end')
 

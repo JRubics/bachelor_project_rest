@@ -34,10 +34,19 @@ class AssignmentView(APIView):
 
         assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()))
 
-        script.build_image(filepath=filepath, tag=assignment.id)
+        script.build_image(filepath=filepath, fixtures="fixtures/f1", tag=assignment.id)
 
         r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'id':assignment.id})
-        assignment.result = r.json()['msg']
+        r = r.json()
+        if r is None:
+            return Response("Server error")
+        try:
+            assignment.result = r['msg']
+            if assignment.result == '':
+                print(r['err'])
+                return Response("Server error2")
+        except TypeError:
+            return Response("Server error3")
         assignment.save()
 
         return Response(assignment.result)
