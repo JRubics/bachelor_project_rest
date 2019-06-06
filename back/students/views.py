@@ -12,6 +12,7 @@ from django.utils.timezone import get_current_timezone
 from datetime import datetime
 import requests
 import json
+import os
 
 class AssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -40,17 +41,21 @@ class AssignmentView(APIView):
 
         script.build_image(filepath=filepath, fixtures=fixture.fixturepath, tag=assignment.id)
 
-        r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'id':assignment.id})
+        r = requests.post('https://bachelor.theedgeofrage.com/runner/registries', json={'url':os.environ.get('REGISTRY_URL', ''), "username":os.environ.get('REGISTRY_USERNAME', ''), "password":os.environ.get('REGISTRY_PASSWORD', '')})
+        if r is None:
+            return Response("Server error")
+
+        image_url = os.environ.get('REGISTRY_URL', '') + '/assignments:' + str(assignment.id)
+        r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'image':image_url})
         r = r.json()
         if r is None:
             return Response("Server error")
         try:
             assignment.result = r['msg']
             if assignment.result == '':
-                print(r['err'])
-                return Response("Server error2")
+                return Response("Server error")
         except TypeError:
-            return Response("Server error3")
+            return Response("Server error")
         assignment.save()
 
         return Response(assignment.result)
