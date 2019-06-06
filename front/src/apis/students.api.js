@@ -10,6 +10,7 @@ import Axios from 'axios';
 const ENDPOINTS = {
 	ASSIGNMENTS: '/students/assignments/',
 	LAST_ASSIGNMENT: '/students/assignments/last/',
+	FIXTURES: '/students/fixtures/',
 };
 
 export default class StudentsApi {
@@ -19,6 +20,14 @@ export default class StudentsApi {
 
 	static getAssignments() {
 		return Axios.get(ENDPOINTS.ASSIGNMENTS);
+	}
+
+	static getFixtures() {
+		return Axios.get(ENDPOINTS.FIXTURES);
+	}
+
+	static getFixture(id) {
+		return Axios.get(ENDPOINTS.FIXTURES + id);
 	}
 
 	static getLastAssignment() {

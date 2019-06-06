@@ -5,6 +5,11 @@
 				<h2>Upload</h2>
                 <form @submit="submit">
                     <v-layout>
+                        <v-flex md6>
+                            <v-select :items="fixtures" v-model="selected_fixture" item-text="fixturename" item-value="id" label="Choose problem"></v-select>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout>
                         <v-flex md2>
                             <upload-btn :fileChangedCallback="upload" class="upload-button"></upload-btn>
                         </v-flex>
@@ -12,7 +17,7 @@
                             <v-card-text>{{file ? file.name:""}}</v-card-text>
                         </v-flex>
                         <v-flex md2>
-                            <v-btn color="accent" type="submit" :disabled="loading" v-if="file">Submit</v-btn>
+                            <v-btn color="accent" type="submit" :disabled="loading" v-if="file && selected_fixture">Submit</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>
@@ -41,6 +46,8 @@ export default {
 	data() {
       return {
         file: null,
+        fixtures: [],
+        selected_fixture: null,
         errors: [],
         loading: false,
       };
@@ -54,6 +61,7 @@ export default {
 
             const data = new FormData();
             data.append('file', this.file);
+            data.append('fixture_id', this.selected_fixture);
             this.loading = true;
 
             StudentsApi.uploadFile(data).then((response) => {
@@ -70,6 +78,13 @@ export default {
                 this.loading = false;
             });
         },
+    },
+    mounted() {
+		StudentsApi.getFixtures().then((response) => {
+            this.fixtures = response.data;
+		}).catch((error) => {
+			this.errors.push(error.response.data);
+		});
 	},
 };
 </script>

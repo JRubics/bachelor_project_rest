@@ -6,7 +6,7 @@ import {
 
 const config = {
   getEnv() {
-    return ENVIRONMENTS[window.location.hostname] || 'dev';
+    return ENVIRONMENTS[window.location.hostname] || 'prod';
   },
 
   getHostName() {

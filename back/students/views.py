@@ -6,7 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from django.core.files.storage import FileSystemStorage
 import time, calendar;
 from .models import Assignment, FixtureFile
-from .serializers import AssignmentSerializer
+from .serializers import AssignmentSerializer, FixtureSerializer
 from .docker import script
 from django.utils.timezone import get_current_timezone
 from datetime import datetime
@@ -23,7 +23,8 @@ class AssignmentView(APIView):
 
     def post(self, request):
         document = request.FILES.get('file')
-        fixture_id=1
+        fixture_id= request.POST.get('fixture_id')
+        print(fixture_id)
         if document.size > 1024:
             content = {'error': 'File too big'}
             return Response(content)
@@ -60,4 +61,17 @@ class LastAssignmentView(APIView):
     def get(self, request):
         assignment = Assignment.objects.filter(user=request.user.id).last()
         serializer = AssignmentSerializer(assignment)
+        return Response(serializer.data)
+
+class FixtureView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id=None):
+        if id:
+            fixture = FixtureFile.objects.get(id=id)
+            serializer = FixtureSerializer(fixture)
+        else:
+            fixtures = FixtureFile.objects.all()
+            serializer = FixtureSerializer(fixtures, many=True)
+
         return Response(serializer.data)

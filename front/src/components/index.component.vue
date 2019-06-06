@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import UploadFile from '../components/upload-file.component';
-import Assignments from '../components/assignments.component';
+import UploadFile from './upload-file.component';
+import Assignments from './assignments.component';
 
 export default {
 	name: 'Index',
