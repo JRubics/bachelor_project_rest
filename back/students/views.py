@@ -47,6 +47,8 @@ class AssignmentView(APIView):
 
         image_url = os.environ.get('REGISTRY_URL', '') + '/assignments:' + str(assignment.id)
         r = requests.post('https://bachelor.theedgeofrage.com/runner/tasks', json={'image':image_url})
+        if not r.status_code == 200:
+            return Response("Server error")
         r = r.json()
         if r is None:
             return Response("Server error")

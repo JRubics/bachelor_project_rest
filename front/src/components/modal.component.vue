@@ -2,7 +2,7 @@
   <div class="text-xs-center">
     <v-dialog
       v-model="dialog"
-      width="500"
+      width="800"
     >
       <v-card>
         <v-card-title
@@ -12,7 +12,7 @@
         </v-card-title>
 
         <v-card-text>
-          {{text}}
+          <p v-html="handleNewLine(text)"></p>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -40,10 +40,13 @@
       };
     },
     methods: {
-		show(text) {
-            this.dialog = true;
-            this.text = text;
-		},
-	},
+      handleNewLine(str) {
+        return str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+      },
+      show(text) {
+              this.dialog = true;
+              this.text = text;
+      },
+    },
   };
 </script>

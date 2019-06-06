@@ -12,7 +12,7 @@
 					<template v-slot:items="props">
 						<td>{{ props.item.id }}</td>
 						<td>{{ props.item.filename }}</td>
-						<td>{{ fixturename(1) }}</td>
+						<td> {{ props.item.fixture.fixturename }} </td>
 						<td>{{ props.item.date_added }}</td>
 						<td>
 							<v-btn color="primary" @click="result(props.item.result)" v-if="props.item.result">Result</v-btn>
@@ -58,11 +58,6 @@ export default {
 			},
 		};
 	},
-	computed: {
-		// fixturename() {
-		// 	return 'jelena';
-		// }
-	},
 	methods: {
 		result(text) {
 			this.$refs.modal.show(text);
@@ -74,15 +69,6 @@ export default {
 				this.errors.push(error.response.data);
 			});
 		},
-		fixturename(id) {
-			var name = 'jelena';
-			StudentsApi.getFixture(id).then((response) => {
-				name = response.data.fixturename;
-			}).catch((error) => {
-				name = "error"
-			});
-			return name;
-		}
     },
     mounted() {
 		StudentsApi.getAssignments().then((response) => {
