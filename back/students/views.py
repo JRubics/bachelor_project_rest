@@ -26,7 +26,7 @@ class AssignmentView(APIView):
         document = request.FILES.get('file')
         fixture_id= request.POST.get('fixture_id')
         print(fixture_id)
-        if document.size > 1024:
+        if document.size > 16384:
             content = {'error': 'File too big'}
             return Response(content)
         fs = FileSystemStorage()
