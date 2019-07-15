@@ -11,7 +11,7 @@ class Assignment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     filepath = models.CharField(max_length=200)
     filename = models.CharField(max_length=40)
-    result = models.CharField(null=True, blank=True, max_length=3000)
+    result = models.CharField(null=True, blank=True, max_length=8000)
     date_added = models.DateTimeField()
     fixture = models.ForeignKey(FixtureFile, on_delete=models.CASCADE)
     def __str__(self):
