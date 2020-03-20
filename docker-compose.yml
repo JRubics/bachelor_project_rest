@@ -11,12 +11,13 @@ services:
     build: back/.
     image: bachelor_project_rest_back
     privileged: true
-    env_file: 
+    env_file:
       - ./back/.env
     restart: unless-stopped
     container_name: jelena_bachelor_back
     volumes:
-      - ./back/assignments:/app/assignments
+      - assignments:/app/students/docker/assignments
+      - fixtures:/app/students/docker/fixtures
     ports:
       - 8022:80
     links:
@@ -30,3 +31,7 @@ services:
       - 8021:80
     links:
       - back
+
+volumes:
+  assignments:
+  fixtures:
