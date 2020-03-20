@@ -2,11 +2,13 @@ version: '3'
 
 services:
   db:
-    image: postgres
+    image: postgres:11
     restart: unless-stopped
     container_name: jelena_bachelor_db
+    env_file:
+      - ./back/.env
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
   back:
     build: back/.
     image: bachelor_project_rest_back
@@ -17,7 +19,7 @@ services:
     container_name: jelena_bachelor_back
     volumes:
       - assignments:/app/students/docker/assignments
-      - fixtures:/app/students/docker/fixtures
+      - /mnt/fixtures:/app/students/docker/fixtures
     ports:
       - 8022:80
     links:
@@ -34,4 +36,4 @@ services:
 
 volumes:
   assignments:
-  fixtures:
+  db:
