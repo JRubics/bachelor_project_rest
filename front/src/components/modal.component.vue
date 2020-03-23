@@ -12,7 +12,7 @@
         </v-card-title>
 
         <v-card-text>
-          <p v-html="handleNewLine(text)"></p>
+          <pre>{{text}}</pre>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -40,9 +40,6 @@
       };
     },
     methods: {
-      handleNewLine(str) {
-        return str.replace(/(?:\r\n|\r|\n)/g, '<br />');
-      },
       show(text) {
               this.dialog = true;
               this.text = text;

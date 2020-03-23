@@ -1,8 +1,8 @@
 <template>
-	<v-layout>
-		<v-flex md12 lg6 offset-lg3>
-			<v-card class="upload-file-form-card">
-				<h2>Upload</h2>
+    <v-layout>
+        <v-flex md12 lg6 offset-lg3>
+            <v-card class="upload-file-form-card">
+                <h2>Upload</h2>
                 <form @submit="submit">
                     <v-layout>
                         <v-flex md6>
@@ -27,73 +27,60 @@
                     class="login-errors"
                 >{{ error }}</p>
                 <modal ref="modal"></modal>
-			</v-card>
-		</v-flex>
-	</v-layout>
+            </v-card>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
 import UploadButton from 'vuetify-upload-button';
-import StudentsApi from '../apis/students.api';
-import Modal from '../components/modal.component';
+import Modal from './modal.component';
+import store from '../store';
+import { mapGetters } from 'vuex';
 
 export default {
-	name: 'UploadFile',
-	components: {
+    name: 'UploadFile',
+    components: {
         'upload-btn': UploadButton,
         'modal': Modal,
-	},
-	data() {
+    },
+    data() {
       return {
         file: null,
-        fixtures: [],
         selected_fixture: null,
-        errors: [],
         loading: false,
       };
     },
-	methods: {
+    computed: {
+        ...mapGetters(['fixtures']),
+        ...mapGetters(['errors']),
+	},
+    methods: {
         upload(file) {
             this.file = file;
         },
-        submit(event) {
+        async submit(event) {
             event.preventDefault();
 
-            const data = new FormData();
-            data.append('file', this.file);
-            data.append('fixture_id', this.selected_fixture);
             this.loading = true;
 
-            StudentsApi.uploadFile(data).then((response) => {
-                if (response.data.error) {
-                    this.errors.push(response.data.error);
-                } else {
-                    this.$emit('upload');
-                    this.file = null;
-                }
-                this.$refs.modal.show(response.data);
-			}).catch((error) => {
-				this.errors.push(error.response.data);
-			}).finally(() => {
-                this.loading = false;
-            });
+            await store.dispatch('addAssignment', { file: this.file, fixture_id: this.selected_fixture });
+
+            this.file = null;
+            this.loading = false;
         },
     },
     mounted() {
-		StudentsApi.getFixtures().then((response) => {
-            this.fixtures = response.data;
-		}).catch((error) => {
-			this.errors.push(error.response.data);
-		});
-	},
+        store.dispatch('initFixtures');
+    },
 };
 </script>
 
 <style lang="stylus">
 .upload-file-form-card
-	padding 2rem
-	margin-top 5rem
+    padding 2rem
+    margin-top 5rem
 
 .upload-button
-	padding-left 0px !important
+    padding-left 0px !important
 </style>

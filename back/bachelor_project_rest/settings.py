@@ -59,7 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',#za compose
+    # za compose
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'bachelor_project_rest.urls'
@@ -90,7 +91,7 @@ WSGI_APPLICATION = 'bachelor_project_rest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DB_ENGINE', ''),
-        'NAME': os.path.join(BASE_DIR, os.environ.get('DB_NAME', '')) if os.environ.get('ENVIRONMENT')=='DEVELOPMENT' else os.environ.get('DB_NAME', ''),
+        'NAME': os.path.join(BASE_DIR, os.environ.get('DB_NAME', '')) if os.environ.get('ENVIRONMENT') == 'DEVELOPMENT' else os.environ.get('DB_NAME', ''),
         'USER': os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', ''),
@@ -139,4 +140,7 @@ USE_TZ = True
 STATIC_URL = os.environ.get('STATIC_URL_ENV', '')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'auth_project/static'),os.path.join(BASE_DIR, 'static'),)#za compose
+# za compose
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'auth_project/static'), os.path.join(BASE_DIR, 'static'),)
+
+RUNNER_URL = 'http://192.168.1.2:8000'

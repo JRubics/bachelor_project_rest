@@ -9,13 +9,15 @@ import Axios from 'axios';
 
 const ENDPOINTS = {
 	ASSIGNMENTS: '/students/assignments/',
-	LAST_ASSIGNMENT: '/students/assignments/last/',
 	FIXTURES: '/students/fixtures/',
 };
 
 export default class StudentsApi {
 	static uploadFile(data) {
-		return Axios.post(ENDPOINTS.ASSIGNMENTS, data);
+		const formData = new FormData();
+		formData.append('file', data.file);
+		formData.append('fixture_id', data.fixture_id);
+		return Axios.post(ENDPOINTS.ASSIGNMENTS, formData);
 	}
 
 	static getAssignments() {
@@ -30,8 +32,7 @@ export default class StudentsApi {
 		return Axios.get(ENDPOINTS.FIXTURES + id);
 	}
 
-	static getLastAssignment() {
-		return Axios.get(ENDPOINTS.LAST_ASSIGNMENT);
+	static checkResults(assignment_id, task_id) {
+		return Axios.get(`${ENDPOINTS.ASSIGNMENTS}${assignment_id}/tasks/${task_id}`);
 	}
 }
-

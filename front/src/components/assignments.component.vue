@@ -32,8 +32,9 @@
 </template>
 
 <script>
-import StudentsApi from '../apis/students.api';
 import Modal from '../components/modal.component';
+import { mapGetters } from 'vuex';
+import store from '../store';
 
 export default {
 	name: 'Assignments',
@@ -43,7 +44,6 @@ export default {
 	data () {
 		return {
 			errors: null,
-			assignments: [],
 			headers: [
 				{ text: 'ID', value: 'id' },
 				{ text: 'Filename', value: 'filename' },
@@ -58,24 +58,16 @@ export default {
 			},
 		};
 	},
+	computed: {
+		...mapGetters(['assignments']),
+	},
 	methods: {
 		result(text) {
 			this.$refs.modal.show(text);
 		},
-		upload() {
-			StudentsApi.getLastAssignment().then((response) => {
-				this.assignments.push(response.data);
-			}).catch((error) => {
-				this.errors.push(error.response.data);
-			});
-		},
-    },
-    mounted() {
-		StudentsApi.getAssignments().then((response) => {
-			this.assignments = response.data;
-		}).catch((error) => {
-			this.errors.push(error.response.data);
-		});
+	},
+	created() {
+		store.dispatch('initAssignments');
 	},
 };
 </script>

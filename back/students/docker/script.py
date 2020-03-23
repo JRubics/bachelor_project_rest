@@ -1,11 +1,12 @@
 import docker
 import os
 
+
 def build_image(filepath, fixtures, tag):
     client = docker.from_env()
     repository = os.environ.get('REGISTRY_URL', '') + '/assignments'
 
-    auth_client = client.login(username=os.environ.get('REGISTRY_USERNAME', ''), password=os.environ.get('REGISTRY_PASSWORD', ''), registry=os.environ.get('REGISTRY_URL', ''))
+    client.login(username=os.environ.get('REGISTRY_USERNAME', ''), password=os.environ.get('REGISTRY_PASSWORD', ''), registry=os.environ.get('REGISTRY_URL', ''))
     print('auth done')
 
     print('build start')

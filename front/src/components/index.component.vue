@@ -1,8 +1,8 @@
 <template>
 	<v-container>
-        <upload-file @upload="upload"></upload-file>
+        <upload-file></upload-file>
         <br>
-        <assignments ref="assignments"></assignments>
+        <assignments></assignments>
 	</v-container>
 </template>
 
@@ -16,16 +16,5 @@ export default {
 		'upload-file': UploadFile,
 		'assignments': Assignments,
 	},
-	data () {
-		return {
-			uploaded: false,
-		};
-	},
-	methods: {
-		upload() {
-			this.$refs.assignments.upload();
-		},
-	},
 };
 </script>
-
