@@ -5,14 +5,11 @@
  * Distributed under terms of the BSD-3-Clause license.
  */
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import StudentsApi from './apis/students.api';
 import * as _ from 'lodash';
-Vue.use(Vuex);
+
+import StudentsApi from '../apis/students.api';
 
 const state = {
-	authStatus: false,
 	assignments: [],
 	fixtures: [],
 	interval: null,
@@ -20,7 +17,6 @@ const state = {
 };
 
 const getters = {
-	authStatus: (state) => state.authStatus,
 	assignments: (state) => state.assignments,
 	fixtures: (state) => state.fixtures,
 	errors: (state) => state.errors,
@@ -28,12 +24,6 @@ const getters = {
 };
 
 const mutations = {
-	login() {
-		state.authStatus = true;
-	},
-	logout() {
-		state.authStatus = false;
-	},
 	addAssignment(state, assignment) {
 		state.assignments.push(assignment);
 	},
@@ -73,10 +63,15 @@ const actions = {
 			context.commit('addAssignment', response.data);
 			context.dispatch('watchAssignment', response.data.id);
 		} catch (error) {
-			context.commit('addError', error.response.data);
+			console.error(error);
+			if (error.response) {
+				context.commit('addError', error.response.data);
+			} else {
+				context.commit('addError', error.toString());
+			}
 		}
 	},
-	async watchAssignment(context, assignment_id) {
+	watchAssignment(context, assignment_id) {
 		const intervalID = setInterval((assignment_id) => {
 			context.dispatch('checkAssignment', assignment_id);
 		}, 2000, assignment_id);
@@ -90,19 +85,29 @@ const actions = {
 				context.commit('removeInterval');
 			}
 		} catch (error) {
-			context.commit('addError', error.response.data);
+			console.error(error);
+			if (error.response) {
+				context.commit('addError', error.response.data);
+			} else {
+				context.commit('addError', error.toString());
+			}
 		}
 	},
 	async initAssignments(context) {
 		try {
 			const response = await StudentsApi.getAssignments();
 			const assignment = _.last(response.data);
-			if (!assignment.result) {
+			if (assignment && !assignment.result) {
 				context.dispatch('watchAssignment', assignment.id);
 			}
 			context.commit('initAssignments', response.data);
 		} catch (error) {
-			context.commit('addError', error.response.data);
+			console.error(error);
+			if (error.response) {
+				context.commit('addError', error.response.data);
+			} else {
+				context.commit('addError', error.toString());
+			}
 		}
 	},
 	async initFixtures(context) {
@@ -115,9 +120,9 @@ const actions = {
 	},
 };
 
-export default new Vuex.Store({
+export default {
 	state,
 	getters,
 	mutations,
 	actions,
-});
+};

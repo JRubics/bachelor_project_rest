@@ -17,7 +17,7 @@
 						type="password"
 					></v-text-field>
 					<p
-						v-for="(error, index) in loginErrors"
+						v-for="(error, index) in authErrors"
 						:key="index"
 						class="login-errors"
 					>{{ error }}</p>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import AuthController from '../../controllers/auth.controller';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 	name: 'login',
@@ -37,23 +37,21 @@ export default {
 		return {
 			username: '',
 			password: '',
-			loginErrors: [],
 		};
 	},
+	computed: {
+		...mapGetters(['authErrors']),
+	},
 	methods: {
-		submit(event) {
+		...mapActions(['login']),
+		async submit(event) {
 			event.preventDefault();
-			this.loginErrors = [];
 			const data = {
 				username: this.username,
 				password: this.password,
 			};
 
-			AuthController.login(data).then(() => {
-				this.$router.push({ name: 'index' });
-			}).catch((error) => {
-				this.loginErrors.push(error.response.data);
-			});
+			await this.login(data);
 		},
 	},
 };

@@ -8,30 +8,20 @@
 import Axios from 'axios';
 
 const ENDPOINTS = {
-	LOGIN: '/token',
-	VERIFY: '/token/verify',
-	REFRESH: '/token/refresh',
+  LOGIN: '/token',
 };
 const AUTH_HEADER = 'Authorization';
 
 export default class AuthApi {
-	static setAuthHeader(token) {
-		Axios.defaults.headers.common[AUTH_HEADER] = `Bearer ${token}`;
-	}
+  static setAuthHeader(token) {
+    if (token) {
+      Axios.defaults.headers.common[AUTH_HEADER] = `Bearer ${token}`;
+    } else {
+      Reflect.deleteProperty(Axios.defaults.headers.common, AUTH_HEADER);
+    }
+  }
 
-	static login(data) {
-		return Axios.post(ENDPOINTS.LOGIN, data);
-	}
-
-	static changePassword(data) {
-		return Axios.patch(ENDPOINTS.USER, data);
-	}
-
-	static verifyToken(token) {
-		return Axios.post(ENDPOINTS.VERIFY, token);
-	}
-
-	static refreshToken(refresh) {
-		return Axios.post(ENDPOINTS.REFRESH, refresh);
-	}
+  static login(data) {
+    return Axios.post(ENDPOINTS.LOGIN, data);
+  }
 }
