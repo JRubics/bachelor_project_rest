@@ -2,7 +2,7 @@
   <div class="text-xs-center">
     <v-dialog
       v-model="dialog"
-      width="800"
+      width="1000"
     >
       <v-card>
         <v-card-title

@@ -6,11 +6,9 @@ import time
 import calendar
 from .models import Assignment, FixtureFile
 from .serializers import AssignmentSerializer, FixtureSerializer
-from .docker import script
 from django.utils.timezone import get_current_timezone
 from datetime import datetime
 import requests
-import os
 from django.conf import settings
 
 
@@ -54,27 +52,20 @@ class AssignmentView(APIView):
         # return Response({'assignment': serializer.data, 'task_id': 123})
         document = request.FILES.get('file')
         fixture_id = request.POST.get('fixture_id')
-        print(fixture_id)
         if document.size > 16384:
             return Response('File too big', status=413)
         fs = FileSystemStorage()
         filename = document.name
-        filepath = "assignments/" + request.user.username + "/" + str(calendar.timegm(time.gmtime())) + filename
-        savepath = "students/docker/" + filepath
-        fs.save(savepath, document)
+        filepath = "students/data/assignments/" + request.user.username + "/" + str(calendar.timegm(time.gmtime())) + filename
+        fs.save(filepath, document)
 
         fixture = FixtureFile.objects.get(id=fixture_id)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=savepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()), fixture=fixture)
+        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()), fixture=fixture)
 
-        script.build_image(filepath=filepath, fixtures=fixture.fixturepath, tag=assignment.id)
-
-        # r = requests.post(f'{settings.RUNNER_URL}/api/registry', json={'url': os.environ.get('REGISTRY_URL', ''), "username": os.environ.get('REGISTRY_USERNAME', ''), "password": os.environ.get('REGISTRY_PASSWORD', '')})
-        # if r is None:
-        #     return Response("Registry error", status=500)
-
-        image_url = os.environ.get('REGISTRY_URL', '') + '/assignments:' + str(assignment.id)
-        r = requests.post(f'{settings.RUNNER_URL}/api/run', json={'image': image_url})
+        fixturepath = "students/data/fixtures/" + fixture.fixturepath
+        files = {'assignment': open(filepath, 'rb'), 'fixtures': open(fixturepath, 'rb') }
+        r = requests.post(f'{settings.RUNNER_URL}/api/run', files=files)
 
         r = r.json()
         serializer = AssignmentSerializer(assignment)

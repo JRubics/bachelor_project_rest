@@ -1,9 +1,0 @@
-FROM python:2.7-slim
-
-RUN set -ex \
-	&& apt update -y \
-	&& apt install -y gcc \
-	&& pip install smoke_test
-
-WORKDIR /app
-CMD smoke_test $filename

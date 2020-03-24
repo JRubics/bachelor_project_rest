@@ -18,8 +18,8 @@ services:
     restart: unless-stopped
     container_name: jelena_bachelor_back
     volumes:
-      - assignments:/app/students/docker/assignments
-      - /mnt/fixtures:/app/students/docker/fixtures
+      - assignments:/app/students/data/assignments
+      - /mnt/fixtures:/app/students/data/fixtures
     ports:
       - 8022:80
     links:
