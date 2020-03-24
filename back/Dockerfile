@@ -18,12 +18,8 @@ RUN set -ex \
 		docker \
 	&& pip install pipenv \
 	&& pipenv install --system \
-	&& pip2 install supervisor \
 	&& apk del .build-deps
-
-RUN mkdir -p /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY . /app
 
-ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["./entrypoint.sh"]
