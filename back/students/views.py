@@ -22,7 +22,6 @@ def handle_task_result(assignment, response):
         except TypeError:
             return Response("Bad result", status=500)
         assignment.save()
-
         return Response(assignment.result)
     elif response.status_code == 202:
         return Response("waiting", status=202)
@@ -32,10 +31,10 @@ def handle_task_result(assignment, response):
 class AssignmentTaskView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, assignment_id, task_id):
+    def get(self, request, assignment_id):
         # return Response("2020-03-23 12:47:22,753 [INFO] Program compiled without errors nor warnings")
         assignment = Assignment.objects.get(id=assignment_id)
-        response = requests.get(f'{settings.RUNNER_URL}/tasks/{task_id}')
+        response = requests.get(f'{settings.RUNNER_URL}/tasks/{assignment.task_id}')
         return handle_task_result(assignment, response)
 
 
@@ -66,10 +65,14 @@ class AssignmentView(APIView):
         fixturepath = "students/data/fixtures/" + fixture.fixturepath
         files = {'assignment': open(filepath, 'rb'), 'fixtures': open(fixturepath, 'rb') }
         r = requests.post(f'{settings.RUNNER_URL}/api/run', files=files)
-
         r = r.json()
+        task_id = r['task_id']
+
+        assignment.task_id = task_id
+        assignment.save()
+
         serializer = AssignmentSerializer(assignment)
-        return Response({'assignment': serializer.data, 'task_id': r['task_id']})
+        return Response(serializer.data)
 
 
 class LastAssignmentView(APIView):

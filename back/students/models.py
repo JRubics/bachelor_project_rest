@@ -17,6 +17,7 @@ class Assignment(models.Model):
     result = models.CharField(null=True, blank=True, max_length=8000)
     date_added = models.DateTimeField()
     fixture = models.ForeignKey(FixtureFile, on_delete=models.CASCADE)
+    task_id = models.CharField(null=True, max_length=100)
 
     def __str__(self):
         return self.user.username + " | " + self.filepath

@@ -20,11 +20,11 @@
 						</td>
 					</template>
 				</v-data-table>
-                <p
-                    v-for="(error, index) in errors"
-                    :key="index"
-                    class="login-errors"
-                >{{ error }}</p>
+					<p
+						v-for="(error, index) in errors"
+						:key="index"
+						class="login-errors"
+					>{{ error }}</p>
 				<modal ref="modal"></modal>
 			</v-card>
 		</v-flex>

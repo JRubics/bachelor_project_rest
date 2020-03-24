@@ -32,7 +32,7 @@ export default class StudentsApi {
 		return Axios.get(ENDPOINTS.FIXTURES + id);
 	}
 
-	static checkResults(assignment_id, task_id) {
-		return Axios.get(`${ENDPOINTS.ASSIGNMENTS}${assignment_id}/tasks/${task_id}`);
+	static checkResults(assignment_id) {
+		return Axios.get(`${ENDPOINTS.ASSIGNMENTS}${assignment_id}`);
 	}
 }

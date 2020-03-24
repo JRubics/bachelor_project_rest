@@ -12,7 +12,6 @@ RUN set -ex \
 FROM nginx:alpine
 
 COPY --from=builder /app/dist /app
-COPY nginx.conf /etc/nginx/conf.d
-RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

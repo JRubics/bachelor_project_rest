@@ -48,12 +48,14 @@ export default {
       return {
         file: null,
         selected_fixture: null,
-        loading: false,
       };
     },
     computed: {
-        ...mapGetters(['fixtures']),
-        ...mapGetters(['errors']),
+        ...mapGetters([
+            'fixtures',
+            'errors',
+            'loading',
+        ]),
 	},
     methods: {
         upload(file) {
@@ -62,12 +64,9 @@ export default {
         async submit(event) {
             event.preventDefault();
 
-            this.loading = true;
-
             await store.dispatch('addAssignment', { file: this.file, fixture_id: this.selected_fixture });
 
             this.file = null;
-            this.loading = false;
         },
     },
     mounted() {
