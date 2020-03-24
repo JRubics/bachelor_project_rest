@@ -143,4 +143,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # za compose
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'auth_project/static'), os.path.join(BASE_DIR, 'static'),)
 
-RUNNER_URL = 'http://192.168.1.2:8000'
+RUNNER_URL = os.environ.get('RUNNER_URL', 'https://bachelor.theedgeofrage.com')

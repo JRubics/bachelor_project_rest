@@ -13,4 +13,4 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assignment
-        fields = ('id', 'filepath', 'filename', 'result', 'date_added', 'fixture', 'task_id')
+        fields = ('id', 'filename', 'result', 'date_added', 'fixture')
