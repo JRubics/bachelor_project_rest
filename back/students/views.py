@@ -42,7 +42,7 @@ class AssignmentView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        assignments = Assignment.objects.filter(user=request.user.id)
+        assignments = Assignment.objects.filter(user=request.user.id).order_by('id')
         serializer = AssignmentSerializer(assignments, many=True)
         return Response(serializer.data)
 
