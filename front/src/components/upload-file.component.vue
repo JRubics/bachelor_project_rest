@@ -35,8 +35,7 @@
 <script>
 import UploadButton from 'vuetify-upload-button';
 import Modal from './modal.component';
-import store from '../store';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'UploadFile',
@@ -58,19 +57,23 @@ export default {
         ]),
 	},
     methods: {
+				...mapActions([
+					'addAssignment',
+					'initFixtures',
+				]),
         upload(file) {
             this.file = file;
         },
         async submit(event) {
             event.preventDefault();
 
-            await store.dispatch('addAssignment', { file: this.file, fixture_id: this.selected_fixture });
+            await this.addAssignment({ file: this.file, fixture_id: this.selected_fixture });
 
             this.file = null;
         },
     },
-    mounted() {
-        store.dispatch('initFixtures');
+    created() {
+        this.initFixtures();
     },
 };
 </script>

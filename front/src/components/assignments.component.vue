@@ -3,7 +3,7 @@
 		<v-flex md12 lg8 offset-lg2>
 			<v-card class="assignments-card">
 				<h2>Assignments</h2>
-                <v-data-table
+								<v-data-table
 					:headers="headers"
 					:items="assignments"
 					:pagination.sync=pagination
@@ -33,8 +33,7 @@
 
 <script>
 import Modal from '../components/modal.component';
-import { mapGetters } from 'vuex';
-import store from '../store';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 	name: 'Assignments',
@@ -62,12 +61,13 @@ export default {
 		...mapGetters(['assignments']),
 	},
 	methods: {
+		...mapActions(['initAssignments']),
 		result(text) {
 			this.$refs.modal.show(text);
 		},
 	},
 	created() {
-		store.dispatch('initAssignments');
+		this.initAssignments();
 	},
 };
 </script>

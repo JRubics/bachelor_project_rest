@@ -1,8 +1,8 @@
 <template>
 	<v-container>
-        <upload-file></upload-file>
-        <br>
-        <assignments></assignments>
+				<upload-file></upload-file>
+				<br>
+				<assignments></assignments>
 	</v-container>
 </template>
 
