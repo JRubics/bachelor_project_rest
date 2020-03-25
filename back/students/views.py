@@ -4,12 +4,16 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.files.storage import FileSystemStorage
 import time
 import calendar
+import jwt
+import os
 from .models import Assignment, FixtureFile
 from .serializers import AssignmentSerializer, FixtureSerializer
 from django.utils.timezone import get_current_timezone
+from django.contrib.auth.models import User
 from datetime import datetime
 import requests
 from django.conf import settings
+from rest_framework.parsers import JSONParser
 
 
 def handle_task_result(assignment, response):
@@ -96,3 +100,20 @@ class FixtureView(APIView):
             serializer = FixtureSerializer(fixtures, many=True)
 
         return Response(serializer.data)
+
+class SignupView(APIView):
+
+    def post(self, request):
+        data = JSONParser().parse(request)
+        password = data["password"]
+        token = data['token']
+        try:
+            json = jwt.decode(token.encode('utf-8'), os.environ.get('SECRET_KEY', ''), algorithms=['HS256'])
+            username = json['username']
+            if User.objects.filter(username=username).exists():
+                return Response("User already exists", status=400)
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            return Response("Signup completed", status=200)
+        except jwt.exceptions.InvalidSignatureError:
+            return Response("Invalid token", status=400)

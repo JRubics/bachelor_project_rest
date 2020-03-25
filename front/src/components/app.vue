@@ -32,8 +32,12 @@ export default {
   data() {
     return {
       toolbarItems: {
-        'true': [{ icon: 'fas fa-user-cog', text: 'Logout', path: '/logout' }],
-        'false': [{ icon: 'lock_open', text: 'Login', path: '/login' }],
+        'true': [
+					{ icon: 'fas fa-user-cog', text: 'Logout', path: '/logout' },
+				],
+        'false': [
+					{ icon: 'lock_open', text: 'Login', path: '/login' },
+				],
       },
     };
   },

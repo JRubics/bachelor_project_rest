@@ -53,6 +53,12 @@ const mutations = {
 	clearErrors(state) {
 		state.errors = [];
 	},
+	clearAssigments(state) {
+		state.errors = [];
+	},
+	clearFixtures(state) {
+		state.errors = [];
+	},
 };
 
 const actions = {
@@ -63,12 +69,7 @@ const actions = {
 			context.commit('addAssignment', response.data);
 			context.dispatch('watchAssignment', response.data.id);
 		} catch (error) {
-			console.error(error);
-			if (error.response) {
-				context.commit('addError', error.response.data);
-			} else {
-				context.commit('addError', error.toString());
-			}
+			context.dispatch('addError', error);
 		}
 	},
 	watchAssignment(context, assignment_id) {
@@ -85,12 +86,7 @@ const actions = {
 				context.commit('removeInterval');
 			}
 		} catch (error) {
-			console.error(error);
-			if (error.response) {
-				context.commit('addError', error.response.data);
-			} else {
-				context.commit('addError', error.toString());
-			}
+			context.dispatch('addError', error);
 		}
 	},
 	async initAssignments(context) {
@@ -102,12 +98,7 @@ const actions = {
 			}
 			context.commit('initAssignments', response.data);
 		} catch (error) {
-			console.error(error);
-			if (error.response) {
-				context.commit('addError', error.response.data);
-			} else {
-				context.commit('addError', error.toString());
-			}
+			context.dispatch('addError', error);
 		}
 	},
 	async initFixtures(context) {
@@ -117,6 +108,23 @@ const actions = {
 		} catch (error) {
 			context.commit('addError', error.response.data);
 		}
+	},
+	addError(context, error){
+		console.error(error);
+			if (error.response) {
+				context.commit('addError', error.response.data);
+			} else {
+				context.commit('addError', error.toString());
+			}
+	},
+	clearAssigmentStore(context){
+		context.commit('clearFixtures');
+		context.commit('clearAssignments');
+		context.commit('clearErrors');
+		context.commit('removeInterval');
+	},
+	clearErrors(context){
+		context.commit('clearErrors');
 	},
 };
 

@@ -36,9 +36,6 @@ const actions = {
 		if (token) {
 			AuthApi.setAuthHeader(token);
 			context.commit('setAuthStatus', true);
-			router.push({ name: 'index' });
-		} else {
-			router.push({ name: 'login' });
 		}
 	},
 	async login(context, data) {
@@ -52,24 +49,44 @@ const actions = {
 				context.commit('setAuthStatus', true);
 				router.push({ name: 'index' });
 			} else {
-				context.commit('addAuthError', 'Missing token from response. Try again');
+				context.dispatch('addAuthError', 'Missing token from response. Try again');
 			}
 		} catch (error) {
-			console.error(error);
-			if (error.response) {
-				context.commit('addAuthError', error.response.data);
-			} else {
-				context.commit('addAuthError', error.toString());
+			if (error.response.data.detail) {
+				context.dispatch('addAuthError', error.response.data.detail);
+			}	else {
+				context.dispatch('addAuthError', error);
 			}
 		}
 	},
+	async signup(context, data) {
+		context.commit('clearAuthErrors');
+		try {
+			await AuthApi.signup(data);
+			router.push({ name: 'login' });
+		} catch (error) {
+			context.dispatch('addAuthError', error);
+		}
+	},
 	logout(context) {
+		context.dispatch('clearAssigmentStore');
 		context.commit('clearAuthErrors');
 		localStorage.removeItem('token');
 		context.commit('setAuthStatus', false);
 		AuthApi.setAuthHeader(null);
 		router.push({ name: 'login' });
 	},
+	addAuthError(context, error){
+		console.error(error);
+			if (error.response) {
+				context.commit('addAuthError', error.response.data);
+			} else {
+				context.commit('addAuthError', error.toString());
+			}
+	},
+	clearAuthErrors(context) {
+		context.commit('clearAuthErrors');
+	}
 };
 
 export default {

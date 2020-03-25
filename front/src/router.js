@@ -11,8 +11,7 @@ import Router from 'vue-router';
 import store from './store';
 import Index from './components/index.component';
 import Login from './components/auth/login.component';
-import UploadFile from './components/upload-file.component';
-import Assignments from './components/assignments.component';
+import Signup from './components/auth/signup.component';
 
 Vue.use(Router);
 
@@ -25,14 +24,12 @@ const router = new Router({
 			component: Index,
 		},
 		{
-			path: '/upload-file',
-			name: 'upload-file',
-			component: UploadFile,
-		},
-		{
-			path: '/assignments',
-			name: 'assignments',
-			component: Assignments,
+			path: '/signup',
+			name: 'signup',
+			component: Signup,
+			meta: {
+				guest: true,
+			},
 		},
 		{
 			path: '/login',
@@ -54,6 +51,9 @@ router.isCurrentRoute = (routeName) => {
 };
 
 router.beforeEach((to, from, next) => {
+	store.dispatch('clearAuthErrors');
+	store.dispatch('clearAssignmentErrors');
+
 	if (to.name === 'logout') {
 		store.dispatch('logout');
 		return next({ name: 'login' });
@@ -61,6 +61,10 @@ router.beforeEach((to, from, next) => {
 
 	if (!to.meta.guest && !store.getters.authStatus) {
 		return next({ name: 'login' });
+	}
+
+	if (to.meta.guest && store.getters.authStatus) {
+		return next({ name: 'index' });
 	}
 
 	return next();

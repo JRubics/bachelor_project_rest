@@ -8,7 +8,8 @@
 import Axios from 'axios';
 
 const ENDPOINTS = {
-  LOGIN: '/token',
+	LOGIN: '/token',
+	SIGNUP: '/students/signup/',
 };
 const AUTH_HEADER = 'Authorization';
 
@@ -23,5 +24,9 @@ export default class AuthApi {
 
   static login(data) {
     return Axios.post(ENDPOINTS.LOGIN, data);
+	}
+
+	static signup(data) {
+    return Axios.post(ENDPOINTS.SIGNUP, data);
   }
 }

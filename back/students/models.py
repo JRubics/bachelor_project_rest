@@ -4,6 +4,7 @@ from django.conf import settings
 
 class FixtureFile(models.Model):
     fixturename = models.CharField(max_length=40)
+    # fixturetext = models.CharField(max_length=40)
     fixturepath = models.CharField(max_length=100)
 
     def __str__(self):

@@ -20,11 +20,6 @@
 						</td>
 					</template>
 				</v-data-table>
-					<p
-						v-for="(error, index) in errors"
-						:key="index"
-						class="login-errors"
-					>{{ error }}</p>
 				<modal ref="modal"></modal>
 			</v-card>
 		</v-flex>
@@ -43,7 +38,6 @@ export default {
 	},
 	data () {
 		return {
-			errors: null,
 			headers: [
 				{ text: 'ID', value: 'id' },
 				{ text: 'Filename', value: 'filename' },
