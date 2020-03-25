@@ -109,7 +109,7 @@ const actions = {
 			context.commit('addError', error.response.data);
 		}
 	},
-	addError(context, error){
+	addError(context, error) {
 		console.error(error);
 			if (error.response) {
 				context.commit('addError', error.response.data);
@@ -117,13 +117,13 @@ const actions = {
 				context.commit('addError', error.toString());
 			}
 	},
-	clearAssigmentStore(context){
+	clearAssigmentStore(context) {
 		context.commit('clearFixtures');
 		context.commit('clearAssigments');
 		context.commit('clearErrors');
 		context.commit('removeInterval');
 	},
-	clearErrors(context){
+	clearErrors(context) {
 		context.commit('clearErrors');
 	},
 };

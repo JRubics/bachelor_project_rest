@@ -71,7 +71,10 @@ export default {
 		...mapGetters(['authErrors']),
 	},
 	methods: {
-		...mapActions(['signup', 'addAuthError']),
+		...mapActions([
+			'signup',
+			'addAuthError',
+		]),
 		submit(event) {
 			event.preventDefault();
 			this.signupErrors = [];
@@ -80,7 +83,7 @@ export default {
 				return;
 			}
 
-			this.signup({password: this.password, token: this.$route.query.token});
+			this.signup({ password: this.password, token: this.$route.query.token });
 		},
 	},
 	created() {

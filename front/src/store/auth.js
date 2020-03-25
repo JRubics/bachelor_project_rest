@@ -76,7 +76,7 @@ const actions = {
 		AuthApi.setAuthHeader(null);
 		router.push({ name: 'login' });
 	},
-	addAuthError(context, error){
+	addAuthError(context, error) {
 		console.error(error);
 			if (error.response) {
 				context.commit('addAuthError', error.response.data);
@@ -86,7 +86,7 @@ const actions = {
 	},
 	clearAuthErrors(context) {
 		context.commit('clearAuthErrors');
-	}
+	},
 };
 
 export default {
