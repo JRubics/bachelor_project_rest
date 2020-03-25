@@ -60,7 +60,7 @@ class AssignmentView(APIView):
 
         fixture = FixtureFile.objects.get(id=fixture_id)
 
-        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=filename, date_added=datetime.now(tz=get_current_timezone()), fixture=fixture)
+        assignment = Assignment.objects.create(user=request.user, filepath=filepath, filename=filename, date_added=datetime.now(), fixture=fixture)
 
         fixturepath = "students/data/fixtures/" + fixture.fixturepath
         files = {'assignment': open(filepath, 'rb'), 'fixtures': open(fixturepath, 'rb') }

@@ -22,8 +22,6 @@ services:
       - /mnt/fixtures:/app/students/data/fixtures
     ports:
       - 8022:80
-    links:
-      - db
   front:
     build: front/.
     image: bachelor_project_rest_front
@@ -31,8 +29,6 @@ services:
     container_name: jelena_bachelor_front
     ports:
       - 8021:80
-    links:
-      - back
 
 volumes:
   assignments:

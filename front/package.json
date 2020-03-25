@@ -12,6 +12,7 @@
     "d3.chart.sankey": "^0.4.0",
     "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^3.0.3",
+    "moment": "^2.24.0",
     "roboto-fontface": "*",
     "vue": "^2.6.10",
     "vue-router": "^3.0.2",

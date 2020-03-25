@@ -13,7 +13,7 @@
 						<td>{{ props.item.id }}</td>
 						<td>{{ props.item.filename }}</td>
 						<td> {{ props.item.fixture.fixturename }} </td>
-						<td>{{ props.item.date_added }}</td>
+						<td>{{ time(props.item.date_added) }}</td>
 						<td>
 							<v-btn color="primary" @click="result(props.item.result)" v-if="props.item.result">Result</v-btn>
 							<span v-if="!props.item.result">In progress</span>
@@ -34,6 +34,7 @@
 <script>
 import Modal from '../components/modal.component';
 import { mapGetters, mapActions } from 'vuex';
+import * as moment from 'moment';
 
 export default {
 	name: 'Assignments',
@@ -65,6 +66,9 @@ export default {
 		result(text) {
 			this.$refs.modal.show(text);
 		},
+		time(time){
+			return moment.utc(time).local().format("YYYY-MM-DD HH:mm:ss");
+		}
 	},
 	created() {
 		this.initAssignments();
