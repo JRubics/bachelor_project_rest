@@ -119,7 +119,7 @@ const actions = {
 	},
 	clearAssigmentStore(context){
 		context.commit('clearFixtures');
-		context.commit('clearAssignments');
+		context.commit('clearAssigments');
 		context.commit('clearErrors');
 		context.commit('removeInterval');
 	},

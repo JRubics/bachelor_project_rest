@@ -52,7 +52,7 @@ router.isCurrentRoute = (routeName) => {
 
 router.beforeEach((to, from, next) => {
 	store.dispatch('clearAuthErrors');
-	store.dispatch('clearAssignmentErrors');
+	store.dispatch('clearErrors');
 
 	if (to.name === 'logout') {
 		store.dispatch('logout');
