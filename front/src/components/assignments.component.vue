@@ -66,9 +66,9 @@ export default {
 		result(text) {
 			this.$refs.modal.show(text);
 		},
-		time(time){
-			return moment.utc(time).local().format("YYYY-MM-DD HH:mm:ss");
-		}
+		time(time) {
+			return moment.utc(time).local().format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	created() {
 		this.initAssignments();
