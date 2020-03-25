@@ -10,8 +10,6 @@ import store from './store';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
-import AuthController from './controllers/auth.controller.js';
-
 Vue.config.productionTip = false;
 
 const configureHttp = () => {
@@ -23,14 +21,8 @@ const configureHttp = () => {
 		},
 		(error) => {
 			if (error.response && error.response.status === 401) {
-				// AuthController.refreshToken().catch(() => {
-					// router.push({
-						// name: 'logout',
-					// });
-				// });
-				router.push({
-					name: 'logout',
-				});
+				store.dispatch('logout');
+				router.push({ name: 'login' });
 			}
 
 			return Promise.reject(error);
@@ -39,9 +31,7 @@ const configureHttp = () => {
 };
 
 configureHttp();
-
-AuthController.refreshToken();
-AuthController.setupToken(); // FIKSAJ!!!! event + listeneri
+store.dispatch('initAuth');
 
 new Vue({
 	router,

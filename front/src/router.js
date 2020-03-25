@@ -8,12 +8,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import store from './store';
 import Index from './components/index.component';
 import Login from './components/auth/login.component';
 import UploadFile from './components/upload-file.component';
 import Assignments from './components/assignments.component';
-
-import AuthController from './controllers/auth.controller';
 
 Vue.use(Router);
 
@@ -56,11 +55,11 @@ router.isCurrentRoute = (routeName) => {
 
 router.beforeEach((to, from, next) => {
 	if (to.name === 'logout') {
-		AuthController.logout();
+		store.dispatch('logout');
 		return next({ name: 'login' });
 	}
 
-	if (!to.meta.guest && !AuthController.getAuthStatus()) {
+	if (!to.meta.guest && !store.getters.authStatus) {
 		return next({ name: 'login' });
 	}
 
