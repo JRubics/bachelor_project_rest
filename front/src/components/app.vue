@@ -21,14 +21,19 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+		<modal></modal>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import Modal from '../components/modal.component';
 
 export default {
-  name: 'app',
+	name: 'app',
+	components: {
+		'modal': Modal,
+	},
   data() {
     return {
       toolbarItems: {

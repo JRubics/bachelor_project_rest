@@ -1,49 +1,49 @@
 <template>
-  <div class="text-xs-center">
-    <v-dialog
-      v-model="dialog"
-      width="1000"
-    >
-      <v-card>
-        <v-card-title
-          primary-title
-        >
-          <h2>Result</h2>
-        </v-card-title>
+	<v-dialog
+		v-model="dialog"
+		content-class="results-modal"
+		persistent
+	>
+		<v-card>
+			<v-card-title
+				primary-title
+			>
+				<h2>Result</h2>
+			</v-card-title>
 
-        <v-card-text>
-          <pre>{{text}}</pre>
-        </v-card-text>
+			<v-card-text>
+				<pre>{{modalText}}</pre>
+			</v-card-text>
 
-        <v-divider></v-divider>
+			<v-divider></v-divider>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="accent"
-            @click="dialog = false"
-          >
-            OK
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+			<v-card-actions>
+				<v-spacer></v-spacer>
+				<v-btn
+					color="accent"
+					@click="closeModal"
+				>
+					CLOSE
+				</v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-dialog>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        dialog: false,
-        text: null,
-      };
-    },
-    methods: {
-      show(text) {
-              this.dialog = true;
-              this.text = text;
-      },
-    },
-  };
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+	computed: {
+		...mapGetters(['dialog', 'modalText']),
+	},
+	methods: {
+		...mapActions(['closeModal']),
+	},
+};
 </script>
+
+<style lang="stylus">
+.results-modal
+	width auto
+</style>

@@ -3,7 +3,7 @@
 		<v-flex md12 lg8 offset-lg2>
 			<v-card class="assignments-card">
 				<h2>Assignments</h2>
-								<v-data-table
+				<v-data-table
 					:headers="headers"
 					:items="assignments"
 					:pagination.sync=pagination
@@ -20,22 +20,17 @@
 						</td>
 					</template>
 				</v-data-table>
-				<modal ref="modal"></modal>
 			</v-card>
 		</v-flex>
 	</v-layout>
 </template>
 
 <script>
-import Modal from '../components/modal.component';
 import { mapGetters, mapActions } from 'vuex';
 import * as moment from 'moment';
 
 export default {
 	name: 'Assignments',
-	components: {
-		'modal': Modal,
-	},
 	data () {
 		return {
 			headers: [
@@ -56,9 +51,9 @@ export default {
 		...mapGetters(['assignments']),
 	},
 	methods: {
-		...mapActions(['initAssignments']),
+		...mapActions(['initAssignments', 'showModal']),
 		result(text) {
-			this.$refs.modal.show(text);
+			this.showModal(text)
 		},
 		time(time) {
 			return moment.utc(time).local().format('YYYY-MM-DD HH:mm:ss');
