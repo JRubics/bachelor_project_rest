@@ -84,6 +84,7 @@ const actions = {
 			if (response.status === 200) {
 				context.commit('addResult', { result: response.data, assignment_id });
 				context.commit('removeInterval');
+				context.commit('showModal', response.data);
 			}
 		} catch (error) {
 			context.dispatch('addError', error);

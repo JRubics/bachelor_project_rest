@@ -5,10 +5,6 @@
  * Distributed under terms of the BSD-3-Clause license.
  */
 
-import * as _ from 'lodash';
-
-import StudentsApi from '../apis/students.api';
-
 const state = {
 	dialog: false,
 	modalText: null,

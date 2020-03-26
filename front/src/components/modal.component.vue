@@ -35,7 +35,10 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
 	computed: {
-		...mapGetters(['dialog', 'modalText']),
+		...mapGetters([
+			'dialog',
+			'modalText',
+		]),
 	},
 	methods: {
 		...mapActions(['closeModal']),

@@ -51,9 +51,12 @@ export default {
 		...mapGetters(['assignments']),
 	},
 	methods: {
-		...mapActions(['initAssignments', 'showModal']),
+		...mapActions([
+			'initAssignments',
+			'showModal',
+		]),
 		result(text) {
-			this.showModal(text)
+			this.showModal(text);
 		},
 		time(time) {
 			return moment.utc(time).local().format('YYYY-MM-DD HH:mm:ss');
