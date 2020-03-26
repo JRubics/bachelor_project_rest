@@ -5,7 +5,7 @@ from .models import Assignment, FixtureFile
 class FixtureSerializer(serializers.ModelSerializer):
     class Meta:
         model = FixtureFile
-        fields = ('id', 'fixturename')
+        fields = ('id', 'fixturename', 'fixturetext')
 
 
 class AssignmentSerializer(serializers.ModelSerializer):

@@ -53,6 +53,10 @@ class AssignmentView(APIView):
     def post(self, request):
         # serializer = AssignmentSerializer(Assignment.objects.get(id=1))
         # return Response({'assignment': serializer.data, 'task_id': 123})
+        assignments = Assignment.objects.filter(user=request.user.id, result=None)
+        if assignments:
+            return Response('Too many requests', status=429)
+
         document = request.FILES.get('file')
         fixture_id = request.POST.get('fixture_id')
         if document.size > 16384:
@@ -79,15 +83,6 @@ class AssignmentView(APIView):
         return Response(serializer.data)
 
 
-class LastAssignmentView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        assignment = Assignment.objects.filter(user=request.user.id).last()
-        serializer = AssignmentSerializer(assignment)
-        return Response(serializer.data)
-
-
 class FixtureView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -96,7 +91,7 @@ class FixtureView(APIView):
             fixture = FixtureFile.objects.get(id=id)
             serializer = FixtureSerializer(fixture)
         else:
-            fixtures = FixtureFile.objects.all()
+            fixtures = FixtureFile.objects.all().order_by('id')
             serializer = FixtureSerializer(fixtures, many=True)
 
         return Response(serializer.data)
