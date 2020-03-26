@@ -15,7 +15,7 @@
 						<td> {{ props.item.fixture.fixturename }} </td>
 						<td>{{ time(props.item.date_added) }}</td>
 						<td>
-							<v-btn color="primary" @click="result(props.item.result)" v-if="props.item.result">Result</v-btn>
+							<v-btn color="accent" @click="result(props.item.result)" v-if="props.item.result">Result</v-btn>
 							<span v-if="!props.item.result">In progress</span>
 						</td>
 					</template>

@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-toolbar color="primary" dense fixed app>
+    <v-toolbar color="accent" dense fixed app>
       <v-toolbar-title>
         <router-link :to="{ name: 'index' }">Home</router-link>
       </v-toolbar-title>

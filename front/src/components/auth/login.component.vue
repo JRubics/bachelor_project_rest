@@ -19,7 +19,7 @@
 					<p
 						v-for="(error, index) in authErrors"
 						:key="index"
-						class="login-errors"
+						class="error--text"
 					>{{ error }}</p>
 					<v-btn type="submit">Login</v-btn>
 				</form>
@@ -61,7 +61,4 @@ export default {
 .login-form-card
 	padding 2rem
 	margin-top 5rem
-
-.login-errors
-	color red
 </style>

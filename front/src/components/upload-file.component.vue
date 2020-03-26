@@ -14,20 +14,20 @@
 										</v-layout>
 										<v-layout>
 												<v-flex md2>
-														<upload-btn :fileChangedCallback="upload" class="upload-button"></upload-btn>
+														<upload-btn color="accent" :fileChangedCallback="upload" class="upload-button"></upload-btn>
 												</v-flex>
 												<v-flex md8>
 														<v-card-text>{{file ? file.name:""}}</v-card-text>
 												</v-flex>
 												<v-flex md2>
-														<v-btn color="accent" type="submit" :disabled="loading" v-if="file && selected_fixture">Submit</v-btn>
+														<v-btn color="success" type="submit" :disabled="loading" v-if="file && selected_fixture">Submit</v-btn>
 												</v-flex>
 										</v-layout>
 								</form>
 								<p
 									v-for="(error, index) in errors"
 									:key="index"
-									class="login-errors"
+									class="error--text"
 								>{{ error }}</p>
 								<modal ref="modal"></modal>
 						</v-card>
