@@ -32,8 +32,9 @@
 						name="password"
 						label="Password"
 						type="password"
-						required>
-					</v-text-field>
+						required
+						autofocus
+					></v-text-field>
 					<v-text-field
 						v-model="passwordConfirm"
 						name="passwordConfirm"

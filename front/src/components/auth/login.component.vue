@@ -9,6 +9,7 @@
 						name="username"
 						label="Username"
 						type="text"
+						autofocus
 					></v-text-field>
 					<v-text-field
 						v-model="password"
